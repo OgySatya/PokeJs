@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .card {
+      @apply 
+      h-64 w-60 border-8 border-double border-zinc-700 rounded-2xl text-2xl text-center uppercase font-bold
+      focus:bg-teal-100 focus:border-red-500 focus:text-red-500
+    }
+    .jpg {
+      @apply 
+      mx-auto h-44 p-3 m-2 hover:scale-125 transition duration-500 ease-in-out
+    }
+  }
