@@ -54,6 +54,9 @@ const types = computed(() => {
 const abilities = computed(() => {
   return !pickedPokemon.value ? [] : pickedPokemon.value.abilities;
 })
+const gradient = computed(() => {
+  return !pickedPokemon.value ? "" : "background-image: radial-gradient(circle," ;
+})
 const winRate = computed(() => {
   const winCount = History.value.filter(state => !!state);
   const loseCount = History.value.filter(state => !state);
@@ -66,6 +69,7 @@ const winRate = computed(() => {
 
 function pick(pokemonIndex) {
   pickedIndex.value = pokemonIndex;
+  console.log(gradient.value)
 }
 
 async function mejudi() {
@@ -169,9 +173,16 @@ function quarter () {
 
   <div v-if="pickedPokemon" class="rounded-lg container m-5 w-max grid grid-cols-2 gap-4 mx-auto">
       <div class="p-2 border-8 border-double border-zinc-700 rounded-2xl mx-auto">
-        <img :class="types[0].type.name" class="rounded-lg w-96" :src="sprite"/>
+      <div v-if="types[1]":class="types[0].type.name" >
+        <div :class="types[1].type.name" style="border-radius: 50%;" > 
+        <img class="rounded-lg w-96" :src="sprite"/>
         <p class="text-2xl text-center uppercase font-bold">{{ pickedPokemon.name }}</p>
-
+        </div>
+     </div>
+     <div v-else :class="types[0].type.name" >
+        <img class="rounded-lg w-96" :src="sprite"/>
+        <p class="text-2xl text-center uppercase font-bold">{{ pickedPokemon.name }}</p>
+     </div>
       <section class="grid grid-cols-2">
         <div>
         <div  v-for="(stat, index) in pickedPokemon.stats" :key="index">
