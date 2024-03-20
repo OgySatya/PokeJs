@@ -26,9 +26,8 @@ const list = ref([])
 const play = ref('')
 const pickedIndex = ref(-1)
 const bet = ref(1000)
-const winHistory = ref([])
+const History = ref([])
 const money = ref(JSON.parse(saved))
-
 async function fetchPokemon(pokemonId) {
   return await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
 }
@@ -56,18 +55,17 @@ const abilities = computed(() => {
   return !pickedPokemon.value ? [] : pickedPokemon.value.abilities;
 })
 const winRate = computed(() => {
-  const winCount = winHistory.value.filter(state => !!state);
-  const loseCount = winHistory.value.filter(state => !state);
+  const winCount = History.value.filter(state => !!state);
+  const loseCount = History.value.filter(state => !state);
   return {
     winCount: winCount.length,
     loseCount: loseCount.length,
-    rate: Math.round((winCount.length / winHistory.value.length) * 100) || 0
+    rate: Math.round((winCount.length / History.value.length) * 100) || 0
   }
 })
 
 function pick(pokemonIndex) {
   pickedIndex.value = pokemonIndex;
-  console.log(pokemonPicks.data)
 }
 
 async function mejudi() {
@@ -92,15 +90,17 @@ async function mejudi() {
   if(uang === 0) {
     saldo = saldo - bet.value;
     list.value.unshift('Lose -'+ bet.value); 
-    winHistory.value.push(false);
+    setTimeout(() => {
+      History.value.push(false);
+    }, 2000)
   }else {
     saldo = saldo + (uang * bet.value);
     list.value.unshift('Win  +'+ uang * bet.value); 
-    winHistory.value.push(true);
+    setTimeout(() => {
+      History.value.push(true);
+    }, 2000)
   }
-
   localStorage.setItem("save", money.value)
-
   setTimeout(() => {
     play.value = 'You ' + list.value[0];
     money.value = money.value + saldo;
@@ -120,6 +120,9 @@ async function mejudi() {
   if(riwayat.value.length > 10) {
     riwayat.value.pop();
   }
+  console.log(log.rate)
+  console.log(log.win, log.lose)
+  console.log(winRate.winCount.value)
 }
 
 function reset () {
@@ -218,16 +221,16 @@ function quarter () {
             <div class="p-3">
             <p class="font-bold text-xl">Place your Bet</p>
             <input type="number" class="border-2 my-3 px-2 w-40 ring-offset-2 ring-4 border-teal-400 rounded-md" v-model="bet"> <br>
-            <button class="rounded-xl border-2 mr-1 p-1 px-2 border-violet-500 focus:ring-2 focus:ring-amber-600"@click="allIn()"> All In </button> 
-            <button class="rounded-xl border-2 m-1 p-1 px-2 border-violet-500 focus:ring-2 focus:ring-amber-600"@click="halfMoney()"> Half </button> 
-            <button class="rounded-xl border-2 m-1 p-1 px-2 border-violet-500 focus:ring-2 focus:ring-amber-600"@click="quarter()"> Quarter </button> 
+            <button class="rounded-xl border-2 mr-1 p-1 px-2 border-violet-500 focus:ring-2 focus:ring-amber-600" @click="allIn()"> All In </button> 
+            <button class="rounded-xl border-2 m-1 p-1 px-2 border-violet-500 focus:ring-2 focus:ring-amber-600" @click="halfMoney()"> Half </button> 
+            <button class="rounded-xl border-2 m-1 p-1 px-2 border-violet-500 focus:ring-2 focus:ring-amber-600" @click="quarter()"> Quarter </button> 
             <p class="font-bold text-xl">Your Uang </p>
             <span class="font-bold text-2xl text-violet-800">Rp. {{ money }}</span>
            </div>
           
            <div class="p-3 my-3">
             <p>Win: {{ winRate.winCount }} || Lose: {{ winRate.loseCount }} </p>
-            <p>Rate: {{ winRate.rate }}%</p>
+            <p class="font-bold">Rate: {{ winRate.rate }}%</p>
             <ul class="border-2 border-dashed border-red-700 p-3 pt-1 h-64 rounded-lg background-image: linear-gradient(to right, red , yellow);" v-if="list">
             <li v-for="item of riwayat">{{ item }}</li>
            </ul>
