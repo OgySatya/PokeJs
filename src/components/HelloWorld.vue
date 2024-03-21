@@ -157,7 +157,6 @@ function quarter () {
 <template>
   <div class="mx-auto bg-sky-100 rounded-lg mt-5 p-4 flex">
     <div class="mx-auto grid grid-cols-3 gap-5 p-4 " >
-
       <template v-for="(pokemon, index) in pokemonPicks.data">
         <button v-if="pokemon" class="card" @click="pick(index)" :class="pokemon.types[0].type.name">
         <img class="jpg" :src="pokemon.sprites.other.dream_world.front_default"/>
@@ -173,16 +172,15 @@ function quarter () {
 
   <div v-if="pickedPokemon" class="rounded-lg container m-5 w-max grid grid-cols-2 gap-4 mx-auto">
       <div class="p-2 border-8 border-double border-zinc-700 rounded-2xl mx-auto">
-      <div v-if="types[1]":class="types[0].type.name" >
+      <div v-if="types[1]":class="types[0].type.name" class="h-80 w-80 rounded-xl">
         <div :class="types[1].type.name" style="border-radius: 50%;" > 
-        <img class="rounded-lg w-96" :src="sprite"/>
-        <p class="text-2xl text-center uppercase font-bold">{{ pickedPokemon.name }}</p>
+        <img :src="sprite"/>
         </div>
      </div>
-     <div v-else :class="types[0].type.name" >
-        <img class="rounded-lg w-96" :src="sprite"/>
-        <p class="text-2xl text-center uppercase font-bold">{{ pickedPokemon.name }}</p>
+     <div v-else :class="types[0].type.name" class="h-80 w-80 rounded-xl" >
+        <img :src="sprite"/>
      </div>
+     <p class="text-2xl text-center uppercase font-bold">{{ pickedPokemon.name }}</p>
       <section class="grid grid-cols-2">
         <div>
         <div  v-for="(stat, index) in pickedPokemon.stats" :key="index">
@@ -193,7 +191,7 @@ function quarter () {
         </div>
       </div>
 
-        <div class="w-36"> 
+        <div class="m-2"> 
             <p class="font-bold text-xl">Ability</p>
               <div class="gap-2 items-center mt-1">
                 <div v-for="ability in abilities" :key="ability">{{ ability.ability.name }}</div>
@@ -211,20 +209,20 @@ function quarter () {
       </div>
       <section class="mt-4 mx-auto">
       
-          <span  class="grid grid-cols-3 gap-4">
-            <div :class="dadu1.type,{shake: shake}" class="rounded-xl p-2 ">
-              <img  class="w-32 h-32 bg-white p-2 rounded-lg" :src="dadu1.img" />
+          <span  class="grid grid-cols-3 gap-2">
+            <div :class="dadu1.type,{shake: shake}" class="rounded-xl p-1.5   ">
+              <img  class=" bg-white p-2 rounded-lg w-32 h-32" :src="dadu1.img" />
             </div>
-            <div :class="dadu2.type,{shake: shake}" class="rounded-xl p-2 ">
-              <img  class="w-32 h-32 bg-white p-2 rounded-lg" :src="dadu2.img" />
+            <div :class="dadu2.type,{shake: shake}" class="rounded-xl p-1.5  ">
+              <img  class=" bg-white p-2 rounded-lg w-32 w h-32" :src="dadu2.img" />
             </div>
-            <div :class="dadu2.type,{shake: shake}" class="rounded-xl p-2 ">
-              <img  class="w-32 h-32 bg-white p-2 rounded-lg" :src="dadu2.img" />
+            <div :class="dadu2.type,{shake: shake}" class="rounded-xl p-1.5 ">
+              <img  class=" bg-white p-2 rounded-lg w-32 w h-32" :src="dadu2.img" />
             </div>
             <button class="mx-auto col-start-2 w-24 mt-2.5 p-1 px-4 font-bold text-xl rounded-xl text-gray-800 outline-double outline-3 outline-offset-2 border-2 border-indigo-400 hover:text-orange-700"
              @click="goyang(), mejudi()">KocoK</button>
           </span>
-            <div class="h-10 -mb-3 mt-4">
+            <div class="h-10 -mb-4 mt-6">
               <p v-if="disabled" class="text-center font-extrabold text-2xl text-emerald-800 animate-bounce">{{ play }}</p>
             </div>
             
