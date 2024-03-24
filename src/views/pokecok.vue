@@ -66,7 +66,6 @@ const winRate = computed(() => {
 
 function pick(pokemonIndex) {
   pickedIndex.value = pokemonIndex;
-  console.log(gradient.value)
 }
 
 async function mejudi() {

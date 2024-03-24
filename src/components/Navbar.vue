@@ -7,6 +7,9 @@
         <li class="mr-6 text-2xl font-bold text-sky-500 hover:bg-gray-700 hover:text-white rounded-md px-2.5 py-1">
             <RouterLink to="/pokecok">PokeCok</RouterLink>
         </li>
+        <li class="mr-6 text-2xl font-bold text-sky-500 hover:bg-gray-700 hover:text-white rounded-md px-2.5 py-1">
+            <RouterLink to="/pokematch">PokeMatch</RouterLink>
+        </li>
     </ul>
    
     </nav>
