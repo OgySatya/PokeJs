@@ -248,39 +248,39 @@ function quarter () {
 
 <style scoped>
   .ground {
-  background-color:#945400;
+  background-color:#945400c7;
   color: white;
 }
 .rock {
-  background-color:#d4cfc6;
+  background-color:#d4cfc6c7;
   color: white;
 }
 .ghost {
-  background-color:#dbd9d5;
+  background-color:#dbd9d5c7;
 }
 .electric {
-  background-color: #fffc45}
+  background-color: #fffc45c7}
 .bug {
-  background-color: #508b2d;
+  background-color: #508b2dc7;
 }
 .poison {
-  background-color: #ca7de9;
+  background-color: #ca7de9c7;
   color: white;
 }
 .normal {
-  background-color:#e0eff0;
+  background-color:#e0eff0c7;
 }
 .fairy {
-  background-color: #F6D6A7}
+  background-color: #F6D6A7c7}
 .fire {
-  background-color: #ff5436;
+  background-color: #ff5436c7;
   color: white;
 }
 .grass {
-  background-color:#b2f8b0;
+  background-color:#b2f8b0c7;
 }
 .water {
-  background-color:#46bdf5;
+  background-color:#46bdf5c7;
   color: white;
 }
 .fighting {
