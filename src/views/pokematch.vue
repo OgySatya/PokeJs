@@ -1,9 +1,8 @@
 <script setup>
-import { ref, reactive, nextTick} from 'vue'
-import confetti from "https://cdn.skypack.dev/canvas-confetti";
+import { ref, reactive, nextTick, watch} from 'vue'
 import ConfettiExplosion from "vue-confetti-explosion";
 
-let picked = 10;
+const picked = ref(16)
 const index1 = ref(-1)
 const index2 = ref(-1)
 const picked1 = ref(null)
@@ -14,11 +13,34 @@ const attempt = ref(0)
 let waktu = ref(true)
 const time = ref()
 const pokemonCard = reactive({
-  list: Array(picked).fill(null) 
+  list: Array(picked.value).fill(null) 
 })
 const cards = reactive ({})
+const options = [
+  {
+    label: "5X2",
+    value: 5,
+  },
+  {
+    label: "5X4",
+    value: 10,
+  },
+  {
+    label: "5X6",
+    value: 15,
+  },
+];
 
-playGame()
+watch(picked, (value, oldValue) => {
+  if (!!value && value > 0) {
+    pokemonCard.list = Array(value).fill(null);
+    playGame();
+  }
+})
+
+function onSelectOption(option) {
+  picked.value = option.value;
+}
 
 function playGame() {
   pokemonList()
@@ -38,7 +60,7 @@ function playGame() {
         array[randomIndex] = temporaryValue;
     }
     return array;
-}
+  }
   cards.value = abc
 }
 
@@ -50,32 +72,43 @@ function pokemonList() {
     const id = Math.floor(Math.random() * 251);
     const response = await fetchPokemon(id);
     const data = await response.json();
+
+    data.flipped = true;
     pokemonCard.list[index] = data;
+
+    // pokemonCard.list[index] = {
+      // flipped: true,
+      // ...data,
+    // }
   })
 
 }
 
 function pick(id,index) {
   timer()
-  if(isMatch.value.includes(index)){}
-  else{
+  if(!isMatch.value.includes(index)){
     if(disable.value == false){
-      cards.value[index].is_default = false;
-    if(!picked1.value){
-      picked1.value = id} 
-      else if(index1.value !== index && picked1.value) {
-        picked2.value = id};
-    if(index1.value==-1){
-      index1.value = index} 
-      else if(index1.value !== index && index1.value > -1) {
-        index2.value = index};
+      cards.value[index].flipped = false;
+      if(!picked1.value){
+        picked1.value = id
+      } else if(index1.value !== index && picked1.value) {
+        picked2.value = id
+      };
+
+      if(index1.value==-1) {
+        index1.value = index
+      } else if(index1.value !== index && index1.value > -1) {
+        index2.value = index
+      };
       if(picked2.value){
-      cards.value[index1.value].held_items.is_default = false;
-      cards.value[index2.value].held_items.is_default = false;
+        cards.value[index1.value].held_items.is_default = false;
+        cards.value[index2.value].held_items.is_default = false;
         matchingCard ();
         attempt.value += 1
         disable.value = true
-      }}} 
+      }
+    }
+  } 
 }
 function matchingCard (){
   if( picked1.value == picked2.value) {
@@ -90,8 +123,7 @@ function matchingCard (){
     index2.value = -1;
     disable.value = false
     if(isMatch.value.length == cards.value.length){
-      confetti()
-      explode ()
+      explode()
       clearInterval(waktuId)
       waktu.value = true
       setTimeout(() => {alert('SELAMAT !!! Anda Menang dengan : '+attempt.value+' langkah dan waktu ' + time.value+'s') },500)
@@ -101,8 +133,8 @@ function matchingCard (){
     setTimeout(() => {
     picked1.value = null
     picked2.value = null
-    cards.value[index2.value].is_default = true
-    cards.value[index1.value].is_default = true
+    cards.value[index2.value].flipped = true
+    cards.value[index1.value].flipped = true
     index1.value = -1
     index2.value = -1
     disable.value = false
@@ -129,6 +161,15 @@ const explode = async () => {
 
 <template>
     <ConfettiExplosion class="mx-auto h-full" v-if="visible" :particleSize="10" :duration="3500"/>
+    <input v-model.number="picked" />
+    <div class="flex gap-2 items-center">
+      <div v-for="(option, index) in options" :key="index" class="flex gap-1 items-center px-2 py-1 rounded bg-neutral-200">
+        <label>
+          <input type="radio" name="option" :value="option.value" @input="onSelectOption(option)" />
+          {{ option.label }}
+        </label>
+      </div>
+    </div>
     <div class="mx-auto p-4 grid bg w-max rounded-2xl">
         <div class="mx-auto grid grid-cols-5 gap-2 m-2S" >
           <span class="font-semibold text-xl my-3 col-start-1 col-end-1">Attempt : {{ attempt }}</span>
@@ -136,8 +177,8 @@ const explode = async () => {
           <span class="font-semibold text-xl my-3 col-start-5 col-end-5">Time : {{ time }}s</span>
         <template v-for="(pokemon, index) in cards.value" :key="index">
           <button v-if="pokemon" class="w-32 h-36" @click="pick(pokemon.id,index)" :key="index">
-            <div v-if="pokemon.is_default" :class="{flip:pokemon.is_default}"  class=" w-32 h-36 card1 card rounded-lg hover:border-red-500">{{ pokemon.id }}</div>
-            <div v-else :class="pokemon.types[0].type.name , {shake: pokemon.held_items.is_default },{flip:!pokemon.is_default}"class="w-32 h-36 border-8 rounded-lg border-double border-yellow-400 mx-auto">
+            <div v-if="pokemon.flipped" :class="{flip:pokemon.flipped}"  class=" w-32 h-36 card1 card rounded-lg hover:border-red-500">{{ pokemon.id }}</div>
+            <div v-else :class="pokemon.types[0].type.name , {shake: pokemon.held_items.is_default },{flip:!pokemon.flipped}"class="w-32 h-36 border-8 rounded-lg border-double border-yellow-400 mx-auto">
                 <img class=" mx-auto w-28 h-28 front-face p-2 -mt-1" :src="pokemon.sprites.other.dream_world.front_default"/>
                 <p class="uppercase font-bold">{{ pokemon.name }}</p>
              </div>
