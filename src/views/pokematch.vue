@@ -161,7 +161,6 @@ const explode = async () => {
 
 <template>
     <ConfettiExplosion class="mx-auto h-full" v-if="visible" :particleSize="10" :duration="3500"/>
-    <input v-model.number="picked" />
     <div class="flex gap-2 items-center">
       <div v-for="(option, index) in options" :key="index" class="flex gap-1 items-center px-2 py-1 rounded bg-neutral-200">
         <label>
