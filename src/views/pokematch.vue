@@ -49,19 +49,20 @@ function playGame() {
   time.value = 0
   let clone = pokemonCard.list
   let xyz = JSON.parse(JSON.stringify(clone.concat(clone)))
-  let abc = fisherYatesShuffle(xyz)
+
   function fisherYatesShuffle(array) {
     let currentIndex = array.length;
     while (currentIndex !== 0) {
-        let randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-        let temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+      let randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      let temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
     }
     return array;
   }
-  cards.value = abc
+
+  cards.value = fisherYatesShuffle(xyz)
 }
 
 async function fetchPokemon(pokemonId) {
@@ -95,7 +96,7 @@ function pick(id,index) {
         picked2.value = id
       };
 
-      if(index1.value==-1) {
+      if(index1.value < 0) {
         index1.value = index
       } else if(index1.value !== index && index1.value > -1) {
         index2.value = index
@@ -131,19 +132,19 @@ function matchingCard (){
     },700)
   }else {
     setTimeout(() => {
-    picked1.value = null
-    picked2.value = null
-    cards.value[index2.value].flipped = true
-    cards.value[index1.value].flipped = true
-    index1.value = -1
-    index2.value = -1
-    disable.value = false
-  }, 700)
+      picked1.value = null
+      picked2.value = null
+      cards.value[index2.value].flipped = true
+      cards.value[index1.value].flipped = true
+      index1.value = -1
+      index2.value = -1
+      disable.value = false
+    }, 700)
   }
 }
 let waktuId;
 function timer() {
-  if (waktu.value==true) {
+  if (!!waktu.value) {
     waktuId = setInterval(() => {
       time.value += 1
     }, 1000);
