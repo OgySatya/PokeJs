@@ -163,21 +163,21 @@ const explode = async () => {
 <template>
     <ConfettiExplosion class="mx-auto h-full" v-if="visible" :particleSize="10" :duration="3500"/>
     <div class="flex gap-2 items-center">
-      <div v-for="(option, index) in options" :key="index" class="flex gap-1 items-center px-2 py-1 rounded bg-neutral-200">
+     
+    </div>
+    <div class="mx-auto p-4 grid bg w-max rounded-2xl">
+        <div class="mx-auto grid grid-cols-5 gap-2 m-2 font-semibold text-xl " >
+          <span class="my-3 col-start-1 col-end-1">Attempt : {{ attempt }}</span>
+          <div v-for="(option, index) in options" :key="index" class="flex gap-1 items-center px-2 py-1">
         <label>
           <input type="radio" name="option" :value="option.value" @input="onSelectOption(option)" />
           {{ option.label }}
         </label>
       </div>
-    </div>
-    <div class="mx-auto p-4 grid bg w-max rounded-2xl">
-        <div class="mx-auto grid grid-cols-5 gap-2 m-2S" >
-          <span class="font-semibold text-xl my-3 col-start-1 col-end-1">Attempt : {{ attempt }}</span>
-          
-          <span class="font-semibold text-xl my-3 col-start-5 col-end-5">Time : {{ time }}s</span>
+          <span class="my-3 col-start-5 col-end-5">Time : {{ time }}s</span>
         <template v-for="(pokemon, index) in cards.value" :key="index">
           <button v-if="pokemon" class="w-32 h-36" @click="pick(pokemon.id,index)" :key="index">
-            <div v-if="pokemon.flipped" :class="{flip:pokemon.flipped}"  class=" w-32 h-36 card1 card rounded-lg hover:border-red-500">{{ pokemon.id }}</div>
+            <div v-if="pokemon.flipped" :class="{flip:pokemon.flipped}"  class=" w-32 h-36 card1 card rounded-lg hover:border-red-500"></div>
             <div v-else :class="pokemon.types[0].type.name , {shake: pokemon.held_items.is_default },{flip:!pokemon.flipped}"class="w-32 h-36 border-8 rounded-lg border-double border-yellow-400 mx-auto">
                 <img class=" mx-auto w-28 h-28 front-face p-2 -mt-1" :src="pokemon.sprites.other.dream_world.front_default"/>
                 <p class="uppercase font-bold">{{ pokemon.name }}</p>
