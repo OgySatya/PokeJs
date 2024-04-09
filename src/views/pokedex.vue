@@ -1,5 +1,5 @@
 <script setup>
-import pokecard from './pokecard.vue';
+import detailed from './detailed.vue';
 import axios from 'axios';
 import { ref, computed , onMounted} from 'vue'
 
@@ -92,7 +92,7 @@ async function openDetail(detailUrl) {
     <button class=" border-2 border-solid border-orange-500 rounded-md px-2 " type="button" v-if="nextLink" @click.prevent="getPokemons(nextLink)">Next</button>
 	</div>
   	</div>
-   <pokecard class="mt-16" :pokek="fullData" />
+   <detailed class="mt-16" :pokek="fullData" />
   </div>
 </template>
 
