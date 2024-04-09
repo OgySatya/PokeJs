@@ -44,7 +44,8 @@ function prevPage() {
     <div v-if="loading" class="text-center font-bold text-2xl">
     <Loader /> 
      Loading....</div>
-    <ul v-else class="grid grid-cols-5 gap-1">
+     <div v-else>
+    <ul  class="grid grid-cols-5 gap-1">
         <li v-for="card in pageCards" :key="card.id">
         <p>{{ card.name }}</p>
         <div v-for="type in card.types">
@@ -57,6 +58,7 @@ function prevPage() {
       <button class="mx-5 border-4 rounded-xl p-2 border-teal-600" @click="prevPage()" v-if="startPage >= 2">Previous</button>
       <span>{{ startPage }} / {{ allPages }}</span>
       <button class=" mx-5 border-4 rounded-xl p-2 border-teal-600" @click="nextPage()" v-if="startPage !== allPages">Next</button>
+    </div>
     </div>
   </div>
 </template>
