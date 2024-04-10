@@ -39,7 +39,25 @@ async function prevPage() {
     pokeCards(); 
     }
     
+    const allPages = computed( () => {
+  return Math.ceil( cards.value.length / pageSize.value)
+})
 
+// const pageCards = computed( () => {
+//     const first = (startPage.value - 1) * pageSize.value;
+//       const last = first + pageSize.value;
+//       return cards.value.slice(first, last);
+//     })
+// function nextPage() {
+//       if (startPage.value < allPages.value) {
+//         ++startPage.value
+//       }
+//     }
+// function prevPage() {
+//       if (startPage.value > 1) {
+//         --startPage.value
+//       }
+//     }
 </script>
 <template>
 <div class="mx-auto w-max">
