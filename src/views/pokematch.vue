@@ -2,7 +2,7 @@
 import { ref, reactive, nextTick, watch} from 'vue'
 import ConfettiExplosion from "vue-confetti-explosion";
 
-const picked = ref(16)
+const picked = ref(10)
 const index1 = ref(-1)
 const index2 = ref(-1)
 const picked1 = ref(null)

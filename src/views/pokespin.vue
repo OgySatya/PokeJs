@@ -102,10 +102,17 @@ const explode = async () => {
                 step="1000"
                 min="0"
                 max="10000"
-                class=""
+                class="m-1"
               />
-              <div :class="{ win: !pokemon.is_default }">
+              <div>
                 <img
+                  v-if="!pokemon.is_default "
+                  class="w-24 h-24 mx-auto rounded-xl animate-pulse"
+                  :class="pokemon.types[0].type.name"
+                  :src="pokemon.sprites.other.home.front_default"
+                />
+                <img
+                   v-else
                   class="w-24 h-24 mx-auto"
                   :src="pokemon.sprites.other.home.front_default"
                 />
@@ -117,7 +124,7 @@ const explode = async () => {
             <input
               v-model="pokemon.weight"
               type="number"
-              class="w-24 mx-2 border-2 ring-1 ring-orange-500 border-amber-700 rounded-lg px-2 bg-stone-400"
+              class="w-24 mx-4 border-2 ring-1 ring-orange-500 border-amber-700 rounded-lg px-2 bg-stone-400"
             />
           </template>
         </li>
@@ -239,12 +246,6 @@ input[type="range"][orient="vertical"] {
   width: 15px;
   height: 100px;
   padding: 0 5px;
-}
-
-.win {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  background-color: #ca7de9c7;
-  border-radius: 15px;
 }
 @keyframes pulse {
   0%,
