@@ -3,7 +3,7 @@
 import { ref, computed , onMounted} from 'vue';
 import axios from 'axios';
 import Loader from './Loader.vue'
-import dropdown from './pokemonTCG/dropdown.vue'
+
 
 const cards = ref([])
 const loading = ref(true)
@@ -12,7 +12,31 @@ const pageQuary = ref(1)
 const inputName = ref('')
 const cardSets = ref()
 const cardTypes = ref([])
-const cardRarity = ref([])
+const cardRarity = ref([
+      "Amazing",
+      "Common",
+      "LEGEND",
+      "Promo",
+      "Rare",
+      "ACE",
+      "BREAK",
+      "Holo",
+      "EX",
+      "GX",
+      "LV.X",
+      "Star",
+      "V",
+      "VMAX",
+      "Prime",
+      "Prism Star",
+      "Rainbow",
+      "Secret",
+      "Shining",
+      "Shiny",
+      "GX",
+      "Ultra",
+      "Uncommon"
+  ])
 const selectedSet = ref('')
 const selectedType = ref('')
 const selectedRarity = ref('')
@@ -21,14 +45,24 @@ onMounted(() => {
     searchCards()
     getSets()
     getTypes()
-    getRarity()
+    // getRarity()
 })
 async function searchCards() {
     loading.value = true;
     let url = `https://api.pokemontcg.io/v2/cards?q=name:${inputName.value}*&page=${pageQuary.value}&pageSize=${pageSize.value}`
-    const response = await axios.get(url);
-    cards.value = response.data.data;
+    if(selectedSet.value){
+      url = url + '&q=set.id:' + selectedSet.value
+    }
+    if(selectedType.value){
+      url = url + '&q=types:' + selectedType.value
+    }
+    if(selectedRarity.value){
+      url = url + '&q=rarity:' + selectedRarity.value
+    }
+    const response = await axios.get(url)
+    cards.value = response.data;
     loading.value = false
+    console.log(url)
 }
 function newSearch () {
   pageQuary.value = 1;
@@ -42,10 +76,10 @@ async function getTypes() {
     const response = await axios.get('https://api.pokemontcg.io/v2/types');
     cardTypes.value = response.data.data;
 }
-async function getRarity() {
-    const response = await axios.get('https://api.pokemontcg.io/v2/rarities');
-    cardRarity.value = response.data.data;
-}
+// async function getRarity() {
+//     const response = await axios.get('https://api.pokemontcg.io/v2/rarities');
+//     cardRarity.value = response.data.data;
+// }
 async function nextPage() {
   ++pageQuary.value;
     loading.value = true;
@@ -77,25 +111,26 @@ async function prevPage() {
         <div class=" inline-flex border-4 ">
           <P class="px-2">Card Set : </P>
         <select v-model="selectedSet" class=" capitalize">
-        <option  v-for="set in cardSets" :key="set.id" class="hover:scale-110 duration-300">{{ set.name }}</option>
+        <option  v-for="set in cardSets" :key="set.id" :value="set.id" class="hover:scale-110 duration-300">{{ set.name }}</option>
         </select>
        </div>  
        <div class=" inline-flex border-4 ">
           <P class="px-2">Card Type : </P>
            <select v-model="selectedType" class=" capitalize">
-            <option  v-for="set in cardTypes" :key="set.id" class="hover:scale-110 duration-300">{{ set }}</option>
+            <option  v-for="type in cardTypes" :key="type.id" class="hover:scale-110 duration-300">{{ type }}</option>
           </select>
         </div> 
       <div class=" inline-flex border-4 ">
           <P class="px-2">Card Rarity : </P>
            <select v-model="selectedRarity" class=" capitalize">
-          <option  v-for="set in cardRarity" :key="set.id" class="hover:scale-110 duration-300">{{ set }}</option>
+          <option  v-for="rare in cardRarity" :key="rare.id" class="hover:scale-110 duration-300">{{ rare }}</option>
          </select>
           </div> 
+          <p class="font-bold">Total Card : {{ cards.totalCount }}</p>
      </div> 
 
     <ul class="grid grid-cols-10 gap-3 text-xs mt-4">
-        <li v-for="card in cards" :key="card.id" class="hover:scale-110 duration-300 ">
+        <li v-for="card in cards.data" :key="card.id" class="hover:scale-110 duration-300 ">
         <p class="font-medium text-center">{{ card.name }}</p>
         <img class="w-28" :src="card.images.small" />
       </li>
@@ -108,16 +143,14 @@ async function prevPage() {
         Prev
     </button>
     <p class="flex items-center text-center justify-center rounded px-3 h-8 w-5 text-sm font-medium text-white bg-gray-800 mx-auto">{{ pageQuary }}</p>
-    <button class="w-20 flex items-center justify-end origin-left px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-e hover:bg-gray-900" @click="nextPage()"v-if="cards.length = pageSize">
+    <button class="w-20 flex items-center justify-end origin-left px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-e hover:bg-gray-900" @click="nextPage()"v-if="cards.count = pageSize">
         Next
         <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
       </svg>
     </button>
   </div>
-    
-   
- 
+  {{ cards.count }} {{ pageSize }}
     </div>
   </div>
 </template>
