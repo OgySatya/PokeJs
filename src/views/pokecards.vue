@@ -3,21 +3,29 @@
 import { ref, computed , onMounted} from 'vue';
 import axios from 'axios';
 import Loader from './Loader.vue'
+import dropdown from './pokemonTCG/dropdown.vue'
 
 const cards = ref([])
 const loading = ref(true)
 const pageSize = ref(20)
 const pageQuary = ref(1)
-const input = ref('')
-const sortItem = ref('Name')
-const sort = ref('Acs')
+const inputName = ref('')
+const cardSets = ref()
+const cardTypes = ref([])
+const cardRarity = ref([])
+const selectedSet = ref('')
+const selectedType = ref('')
+const selectedRarity = ref('')
 
 onMounted(() => {
     searchCards()
+    getSets()
+    getTypes()
+    getRarity()
 })
 async function searchCards() {
     loading.value = true;
-    let url = `https://api.pokemontcg.io/v2/cards?q=name:${input.value}*&page=${pageQuary.value}&pageSize=${pageSize.value}`
+    let url = `https://api.pokemontcg.io/v2/cards?q=name:${inputName.value}*&page=${pageQuary.value}&pageSize=${pageSize.value}`
     const response = await axios.get(url);
     cards.value = response.data.data;
     loading.value = false
@@ -25,6 +33,18 @@ async function searchCards() {
 function newSearch () {
   pageQuary.value = 1;
   searchCards()
+}
+async function getSets() {
+    const response = await axios.get('https://api.pokemontcg.io/v2/sets');
+    cardSets.value = response.data.data;
+}
+async function getTypes() {
+    const response = await axios.get('https://api.pokemontcg.io/v2/types');
+    cardTypes.value = response.data.data;
+}
+async function getRarity() {
+    const response = await axios.get('https://api.pokemontcg.io/v2/rarities');
+    cardRarity.value = response.data.data;
 }
 async function nextPage() {
   ++pageQuary.value;
@@ -46,28 +66,35 @@ async function prevPage() {
      <p class="animate-pulse">Loading....</p></div>
      <div v-else>
     <div class="flex w-64 items-center mx-auto">   
-        <input v-model="input" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+        <input v-model="inputName" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
         <button  @click="newSearch()" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
             <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
             </svg>
         </button> 
       </div>
-      <div class="flex mt-2">
-        <p class="px-2 border-4">Sort By</p>
-      <select v-model="sortItem" class=" capitalize border-y-4">
-        <option>name</option>
-        <option>set</option>
-        <option>rarety</option>
-        <option>type</option>
-      </select>
-      <select v-model="sort" class=" capitalize border-4 ">
-        <option>Acs</option>
-        <option>Desc</option>
-      </select>
-     </div>
+      <div class="flex mt-2 justify-between">
+        <div class=" inline-flex border-4 ">
+          <P class="px-2">Card Set : </P>
+        <select v-model="selectedSet" class=" capitalize">
+        <option  v-for="set in cardSets" :key="set.id" class="hover:scale-110 duration-300">{{ set.name }}</option>
+        </select>
+       </div>  
+       <div class=" inline-flex border-4 ">
+          <P class="px-2">Card Type : </P>
+           <select v-model="selectedType" class=" capitalize">
+            <option  v-for="set in cardTypes" :key="set.id" class="hover:scale-110 duration-300">{{ set }}</option>
+          </select>
+        </div> 
+      <div class=" inline-flex border-4 ">
+          <P class="px-2">Card Rarity : </P>
+           <select v-model="selectedRarity" class=" capitalize">
+          <option  v-for="set in cardRarity" :key="set.id" class="hover:scale-110 duration-300">{{ set }}</option>
+         </select>
+          </div> 
+     </div> 
 
-    <ul class="grid grid-cols-5 gap-3 text-xs mt-4">
+    <ul class="grid grid-cols-10 gap-3 text-xs mt-4">
         <li v-for="card in cards" :key="card.id" class="hover:scale-110 duration-300 ">
         <p class="font-medium text-center">{{ card.name }}</p>
         <img class="w-28" :src="card.images.small" />
