@@ -2,8 +2,8 @@
 <script setup>
 import { ref, computed , onMounted} from 'vue';
 import axios from 'axios';
-import Loader from './Loader.vue'
-
+import Loader from './Loader.vue';
+import cardinfo from './pokemonTCG/cardinfo.vue';
 
 const cards = ref([])
 const loading = ref(true)
@@ -40,6 +40,8 @@ const cardRarity = ref([
 const selectedSet = ref('')
 const selectedType = ref('')
 const selectedRarity = ref('')
+const selectedCard = ref()
+const sort = ref('')
 
 onMounted(() => {
     searchCards()
@@ -49,6 +51,7 @@ onMounted(() => {
 })
 async function searchCards() {
     loading.value = true;
+    selectedCard.value = ''
     let url = `https://api.pokemontcg.io/v2/cards?q=name:${inputName.value}*&page=${pageQuary.value}&pageSize=${pageSize.value}`
     if(selectedSet.value){
       url = url + '&q=set.id:' + selectedSet.value
@@ -58,6 +61,9 @@ async function searchCards() {
     }
     if(selectedRarity.value){
       url = url + '&q=rarity:' + selectedRarity.value
+    }
+    if(sort.value){
+      url = url + '&orderBy=' +sort.value
     }
     const response = await axios.get(url)
     cards.value = response.data;
@@ -91,15 +97,19 @@ async function prevPage() {
     loading.value = true;
     searchCards(); 
     }
-    
+async function openDetail(cardId) {
+  const response = await axios.get(`https://api.pokemontcg.io/v2/cards/${cardId}`);
+ selectedCard.value = response.data.data;
+ console.log(selectedCard.value)
+}
 </script>
 <template>
-<div class="mx-auto w-max">
+<div class="mx-auto w-3/4">
     <div v-if="loading" class="text-center font-bold text-2xl">
     <Loader /> 
      <p class="animate-pulse">Loading....</p></div>
      <div v-else>
-    <div class="flex w-64 items-center mx-auto">   
+      <div class="flex w-64 items-center mx-auto">   
         <input v-model="inputName" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
         <button  @click="newSearch()" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
             <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -107,7 +117,7 @@ async function prevPage() {
             </svg>
         </button> 
       </div>
-      <div class="flex mt-2 justify-between">
+      <div class="flex mt-2 justify-between px-3">
         <div class=" inline-flex border-4 ">
           <P class="px-2">Card Set : </P>
         <select v-model="selectedSet" class=" capitalize">
@@ -118,6 +128,7 @@ async function prevPage() {
           <P class="px-2">Card Type : </P>
            <select v-model="selectedType" class=" capitalize">
             <option  v-for="type in cardTypes" :key="type.id" class="hover:scale-110 duration-300">{{ type }}</option>
+          
           </select>
         </div> 
       <div class=" inline-flex border-4 ">
@@ -125,14 +136,25 @@ async function prevPage() {
            <select v-model="selectedRarity" class=" capitalize">
           <option  v-for="rare in cardRarity" :key="rare.id" class="hover:scale-110 duration-300">{{ rare }}</option>
          </select>
+      </div>
+        <div class=" inline-flex border-4 px2 ">
+          <P class="px-2">Sort by Name : </P>
+           <select v-model="sort" class=" capitalize">
+            <option value="name" >Asc</option>
+            <option value="-name">Dsc</option>
+           </select>
           </div> 
+      
+
           <p class="font-bold">Total Card : {{ cards.totalCount }}</p>
      </div> 
 
     <ul class="grid grid-cols-10 gap-3 text-xs mt-4">
         <li v-for="card in cards.data" :key="card.id" class="hover:scale-110 duration-300 ">
+        <button @click="openDetail(card.id)">
         <p class="font-medium text-center">{{ card.name }}</p>
         <img class="w-28" :src="card.images.small" />
+        </button>
       </li>
     </ul>
 <div class="flex justify-between mt-4 px-5">
@@ -150,7 +172,9 @@ async function prevPage() {
       </svg>
     </button>
   </div>
-  {{ cards.count }} {{ pageSize }}
     </div>
+    <div class="mx auto mt-5 w-max">
+    <cardinfo 
+    :cardData="selectedCard"/></div>
   </div>
 </template>
