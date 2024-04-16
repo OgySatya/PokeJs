@@ -1,3 +1,33 @@
+<script setup>
+import { ref } from 'vue'
+
+const authName = ref()
+const authPass = ref()
+const warning = ref(false)
+
+function login (){
+  let getData = localStorage.getItem("userData")
+  let data =  JSON.parse(getData)
+  const find = data.find(({ userName }) => userName === authName.value)
+  let bolehLogin = false
+  let fullName =''
+  if( find ){
+      if(find.password === authPass.value){
+      bolehLogin = true
+      fullName = find.firstName + find.lastName
+      warning.value = false
+      }else{
+      warning.value = true
+    }
+ }
+ else{
+      warning.value = true
+    }
+  console.log(bolehLogin,authPass.value,find.password)
+}
+
+</script>
+
 <template>
     <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -5,11 +35,12 @@
       </div>
   
       <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form class="space-y-4" action="#" method="POST">
+        <p v-if="warning" class="text-red-500 text-center text-sm font-semibold animate-bounce">User Name & Password Pelih!!!</p>
+        <form class="space-y-4" @submit.prevent="login()">
           <div>
             <label for="userName" class="block text-sm font-medium leading-6 text-gray-900">User Name</label>
             <div class="mt-2">
-              <input id="userName" name="userName" type="userName" autocomplete="userName" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+              <input v-model="authName" type="string" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
             </div>
           </div>
           <div>
@@ -19,7 +50,7 @@
               </div>
             </div>
             <div class="mt-1">
-              <input id="password" name="password" type="password" autocomplete="current-password" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+              <input v-model="authPass" type="password" autocomplete="current-password" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
             </div>
           </div>
           <div>

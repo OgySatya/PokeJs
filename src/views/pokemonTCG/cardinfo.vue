@@ -11,9 +11,9 @@ const props = defineProps({
 <template>
     <div v-if="cardData" class="flex">
       <img :src="cardData.images.large" class="w-80">
-      <div class="mx-5 w-80">
+      <div class="mx-5 w-72">
         <div class="my-2 mx-auto">
-        <img class="h-8 mx-auto" :src="cardData.set.images.logo">
+        <img class=" h-12 mx-auto" :src="cardData.set.images.logo">
         <p class="text-center font-mono font-bold">{{ cardData.set.name }}</p>
         </div>  
         <p>Name : {{ cardData.name}}</p>

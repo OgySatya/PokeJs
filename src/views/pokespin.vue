@@ -118,7 +118,7 @@ const explode = async () => {
                 />
               </div>
             </div>
-            <p class="capitalize font-semibold text-center text-amber-700">
+            <p class="capitalize font-semibold text-center text-amber-700 -mt-3">
               {{ pokemon.name }}
             </p>
             <input
