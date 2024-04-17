@@ -19,7 +19,6 @@ function login (){
       router.push({ path: '/' })
       localStorage.setItem("auth", true);
       localStorage.setItem("user", fullName);
-      location.reload()
       }else{
       warning.value = true
     }
