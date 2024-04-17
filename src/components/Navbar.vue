@@ -13,8 +13,7 @@ onMounted(() => {
 function logOut () {
     localStorage.setItem("auth", false);
     localStorage.setItem("user", '');
-    router.push({ path: '/login' })
-    location.reload()
+    router.push({ path: '/login' };
 }
 </script>
 
