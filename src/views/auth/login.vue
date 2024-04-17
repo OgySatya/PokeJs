@@ -1,21 +1,23 @@
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const authName = ref()
 const authPass = ref()
 const warning = ref(false)
+const router = useRouter()
 
 function login (){
   let getData = localStorage.getItem("userData")
   let data =  JSON.parse(getData)
   const find = data.find(({ userName }) => userName === authName.value)
-  let bolehLogin = false
   let fullName =''
   if( find ){
       if(find.password === authPass.value){
-      bolehLogin = true
       fullName = find.firstName + find.lastName
       warning.value = false
+      router.push({ path: '/' })
+      localStorage.setItem("auth", true);
       }else{
       warning.value = true
     }
@@ -23,7 +25,6 @@ function login (){
  else{
       warning.value = true
     }
-  console.log(bolehLogin,authPass.value,find.password)
 }
 
 </script>

@@ -58,7 +58,8 @@ function registerUser () {
                   </div>
                   <button type="submit" class="w-full bg-amber-500 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-gray-500">Create an account</button>
               </form>
-          </div>
+            <RouterLink class="text-blue-700 text-center text-sm font-semibold" to="/login">Back to Login</RouterLink>
+        </div>
       </div>
   </div>
 </section>

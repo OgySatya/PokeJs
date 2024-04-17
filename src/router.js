@@ -11,7 +11,7 @@ import pokecards from './views/pokecards.vue'
 const routes = [
   { path: '/', component: pokedex },
   { path: '/login', component: login },
-  { path: '/register', component: register },
+  { path: '/login/register', component: register },
   { path: '/pokecok', component: pokecok },
   { path: '/pokematch', component: pokematch },
   { path: '/pokespin', component: pokespin },
@@ -21,6 +21,17 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+
+router.beforeEach((to, from, next) => {
+  const bolehLogin = JSON.parse(localStorage.getItem("auth"));
+  if(to.path !== "/login" && !bolehLogin ){
+    next({path : '/login',})
+  }
+  if(to.path === "/login" && bolehLogin ){
+    next({path : '/'});
+  } 
+  else next();
 })
 
 export default router
