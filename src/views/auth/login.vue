@@ -2,10 +2,10 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const authName = ref()
 const authPass = ref()
 const warning = ref(false)
-const router = useRouter()
 
 function login (){
   let getData = localStorage.getItem("userData")
@@ -14,10 +14,12 @@ function login (){
   let fullName =''
   if( find ){
       if(find.password === authPass.value){
-      fullName = find.firstName + find.lastName
+      fullName = find.firstName + ' ' + find.lastName
       warning.value = false
       router.push({ path: '/' })
       localStorage.setItem("auth", true);
+      localStorage.setItem("user", fullName);
+      location.reload()
       }else{
       warning.value = true
     }

@@ -104,7 +104,7 @@ async function openDetail(cardId) {
 }
 </script>
 <template>
-<div class="mx-auto w-3/4">
+<div class="mx-auto p-4">
     <div v-if="loading" class="text-center font-bold text-2xl">
     <Loader /> 
      <p class="animate-pulse">Loading....</p></div>

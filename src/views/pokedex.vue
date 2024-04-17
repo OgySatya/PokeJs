@@ -77,7 +77,7 @@ async function openDetail(detailUrl) {
     <div>
     <ul class="grid grid-cols-4 gap-3 my-4">
       <li v-for="pokemon in filteredPoke" :key="pokemon.name">
-          <div :class="pokemon.type" class="justify-center rounded-lg shadow-lg outline-double outline-4 outline-offset-2 outline-slate-300">
+          <div :class="pokemon.type" class="mx-1 justify-center rounded-lg shadow-lg outline-double outline-4 outline-offset-2 outline-slate-300">
               <img  class="w-36 hover:scale-110 hover:-translate-y-3 duration-300 " :src="pokemon.sprite" />
               <div class="text-center my-2">
                 <a class="font-medium uppercase hover:text-orange-400 " :href="pokemon.url" @click.prevent="openDetail(pokemon.url)">

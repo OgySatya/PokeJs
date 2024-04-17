@@ -7,6 +7,7 @@ const userName = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const warning = ref(false)
+const success = ref(false)
 
 function registerUser () {
     if(password.value === confirmPassword.value){
@@ -22,7 +23,11 @@ function registerUser () {
     let combine = allUser.concat(user)
     localStorage.setItem("userData", JSON.stringify(combine));
     warning.value = false
-}else {warning.value = true }
+    success.value = true
+}else {
+    warning.value = true;
+    success.value = false;
+ }
 }
   
 </script>
@@ -35,6 +40,7 @@ function registerUser () {
                   Create Poke account
               </h1>
               <p v-if="warning" class="text-red-500 text-center text-sm font-semibold animate-bounce">Password Sing Patuh!!!</p>
+              <p v-else-if="success" class="text-lime-500 text-center text-sm font-semibold animate-bounce">Mantap Boss!!!</p>
               <form class="space-y-4 md:space-y-6" @submit.prevent="registerUser()">
                   <div>
                       <label for="firstName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
