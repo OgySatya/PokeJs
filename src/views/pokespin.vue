@@ -102,7 +102,8 @@ const explode = async () => {
                 step="1000"
                 min="0"
                 max="10000"
-                class="m-1"
+                class="h-28"
+                style="writing-mode: vertical-lr; direction: rtl"
               />
               <div>
                 <img
@@ -241,12 +242,6 @@ const explode = async () => {
 </template>
 
 <style scoped>
-input[type="range"][orient="vertical"] {
-  appearance: slider-vertical;
-  width: 15px;
-  height: 100px;
-  padding: 0 5px;
-}
 @keyframes pulse {
   0%,
   100% {

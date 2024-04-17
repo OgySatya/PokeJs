@@ -31,7 +31,6 @@ function pokemonList() {
     const data = await response.json();
     pokemonPicks.data[index] = data;
   })
-  console.log(pokemonPicks.data)
 }
 
 const pickedPokemon = computed(() => {

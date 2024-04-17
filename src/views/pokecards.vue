@@ -100,7 +100,6 @@ async function prevPage() {
 async function openDetail(cardId) {
   const response = await axios.get(`https://api.pokemontcg.io/v2/cards/${cardId}`);
  selectedCard.value = response.data.data;
- console.log(selectedCard.value)
 }
 </script>
 <template>

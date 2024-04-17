@@ -8,7 +8,6 @@ onMounted(() => {
     if (localStorage.user) {
       name.value = localStorage.user;
     }
-    console.log(name.value)
 }) 
   
 function logOut () {

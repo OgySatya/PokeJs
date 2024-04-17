@@ -11,7 +11,6 @@ const previousLink = ref('')
 const nextLink = ref('')
 const fullData = ref('');
 
-console.log(pokemons)
 onMounted(async () => {
   await getPokemons('https://pokeapi.co/api/v2/pokemon?limit=32');
   // await allPokemons('https://pokeapi.co/api/v2/pokemon?limit=1000');
