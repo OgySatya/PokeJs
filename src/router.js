@@ -1,5 +1,6 @@
 import { createWebHistory, createRouter } from 'vue-router'
 
+import home from './views/home.vue'
 import pokedex from './views/pokedex.vue'
 import login from './views/auth/login.vue'
 import register from './views/auth/register.vue'
@@ -9,9 +10,10 @@ import pokespin from './views/pokespin.vue'
 import pokecards from './views/pokecards.vue'
 
 const routes = [
-  { path: '/', component: pokedex, meta: { requiresAuth: true }},
+  { path: '/', component: home, meta: { requiresAuth: true }},
   { path: '/login', component: login, meta: { requiresAuth: false} },
   { path: '/register', component: register, meta: { requiresAuth: false} },
+  { path: '/pokedex', component: pokedex, meta: { requiresAuth: true } },
   { path: '/pokecok', component: pokecok, meta: { requiresAuth: true } },
   { path: '/pokematch', component: pokematch, meta: { requiresAuth: true } },
   { path: '/pokespin', component: pokespin, meta: { requiresAuth: true } },

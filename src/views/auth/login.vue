@@ -20,7 +20,8 @@ function login (){
       localStorage.setItem("auth", true);
       localStorage.setItem("user", fullName);
       }else{
-      warning.value = true
+      warning.value = true;
+      location.reload();
     }
  }
  else{
