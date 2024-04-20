@@ -11,8 +11,8 @@ import pokecards from './views/pokecards.vue'
 
 const routes = [
   { path: '/', component: home, meta: { requiresAuth: true }},
-  { path: '/login', component: login, meta: { requiresAuth: false} },
-  { path: '/register', component: register, meta: { requiresAuth: false} },
+  { path: '/login', component: login },
+  { path: '/register', component: register },
   { path: '/pokedex', component: pokedex, meta: { requiresAuth: true } },
   { path: '/pokecok', component: pokecok, meta: { requiresAuth: true } },
   { path: '/pokematch', component: pokematch, meta: { requiresAuth: true } },
