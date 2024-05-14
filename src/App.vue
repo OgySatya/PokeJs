@@ -8,11 +8,9 @@ import Navbar from './components/Navbar.vue'
 
 </script>
 
-<template >
-  <Navbar class="theme-controller"/>
-  <RouterView class="dark:bg-slate-700 theme-controller" />
+<template>
+  <Navbar class="theme-controller" />
+  <RouterView class="theme-controller" />
 </template>
 
-<style>
-
-</style>
+<style></style>
