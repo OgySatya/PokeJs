@@ -2,15 +2,17 @@
 import { computed } from "vue";
 import Navbar from './components/Navbar.vue'
 
-const isLoggedIn = computed(() => {
-  return !!JSON.parse(localStorage.getItem("auth"));
-})
+// const isLoggedIn = computed(() => {
+//   return !!JSON.parse(localStorage.getItem("auth"));
+// })
 
 </script>
 
-<template>
-  <Navbar v-if="isLoggedIn" />
-  <RouterView />
+<template >
+  <Navbar class="theme-controller"/>
+  <RouterView class="dark:bg-slate-700 theme-controller" />
 </template>
 
-<style scoped></style>
+<style>
+
+</style>

@@ -10,14 +10,14 @@ import pokespin from './views/pokespin.vue'
 import pokecards from './views/pokecards.vue'
 
 const routes = [
-  { path: '/', component: home, meta: { requiresAuth: true }},
+  { path: '/', component: home },
   { path: '/login', component: login },
   { path: '/register', component: register },
-  { path: '/pokedex', component: pokedex, meta: { requiresAuth: true } },
-  { path: '/pokecok', component: pokecok, meta: { requiresAuth: true } },
-  { path: '/pokematch', component: pokematch, meta: { requiresAuth: true } },
-  { path: '/pokespin', component: pokespin, meta: { requiresAuth: true } },
-  { path: '/pokecards', component: pokecards, meta: { requiresAuth: true } },
+  { path: '/pokedex', component: pokedex, name: 'Pokedex'},
+  { path: '/pokecok', component: pokecok, name: 'Pokecok'},
+  { path: '/pokematch', component: pokematch, name: 'Pokematch'},
+  { path: '/pokespin', component: pokespin, name: 'Pokespin'},
+  { path: '/pokecards', component: pokecards, name: 'Pokecard'},
 ]
 
 const router = createRouter({
@@ -25,15 +25,15 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-  const bolehLogin = JSON.parse(localStorage.getItem("auth"));
-  if (to.meta.requiresAuth && !bolehLogin){
-    next({path : '/login',})
-  }
-  if(to.path === "/login" && bolehLogin ){
-    next({path : '/'});
-  } 
-  else next();
-})
+// router.beforeEach((to, from, next) => {
+//   const bolehLogin = JSON.parse(localStorage.getItem("auth"));
+//   if (to.meta.requiresAuth && !bolehLogin){
+//     next({path : '/login',})
+//   }
+//   if(to.path === "/login" && bolehLogin ){
+//     next({path : '/'});
+//   } 
+//   else next();
+// })
 
 export default router

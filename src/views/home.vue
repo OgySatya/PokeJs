@@ -16,7 +16,7 @@ async function getSets() {
 </script>
 <template>
   <div
-  class="rounded-full bg-cover p-12 text-center h-screen m-5"
+  class="bg-cover p-12 text-center h-screen m-5"
   style="background-image: url(https://images.alphacoders.com/603/603479.png)">
 
     <div class="py-2 justify-center text-white bg-slate-900 bg-opacity-70 rounded-3xl w-3/4 mx-auto">
