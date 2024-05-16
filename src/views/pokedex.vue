@@ -1,27 +1,28 @@
 <script setup>
 import detailed from './detailed.vue';
+import Loader from './Loader.vue';
 import axios from 'axios';
 import { ref, computed, onMounted, reactive } from 'vue'
 
 const pokeType = reactive({
-fighting : "amber-700",
-flying : "slate-500",
-poison : '#c026d3',
-ground : '#451a03',
-rock : '#57534e',
-// bug :
-// ghost :
-// steel :
-fire : 'red-500',
-// water :
-// grass :
-// electric :
-// psychic :
-// ice :
-// dragon :
-// dark :
-// fairy :
-// stellar :
+  fighting: "amber-700",
+  flying: "slate-500",
+  poison: '#c026d3',
+  ground: '#451a03',
+  rock: '#57534e',
+  // bug :
+  // ghost :
+  // steel :
+  fire: 'red-500',
+  // water :
+  // grass :
+  // electric :
+  // psychic :
+  // ice :
+  // dragon :
+  // dark :
+  // fairy :
+  // stellar :
 })
 
 const pokemons = ref([])
@@ -40,16 +41,16 @@ onMounted(async () => {
 // async function getPokemons(url) {
 //   const response = await axios.get(url);
 //   previousLink.value = response.data.previous
-  // nextLink.value = response.data.next;
-  // pokemons.value = await Promise.all(response.data.results.map(async (pokemon) => {
-  //   const response = await axios.get(pokemon.url);
-  //   return {
-  //     ...pokemon,
-  //     sprite: response.data.sprites.other.home.front_default,
-  //     order: response.data.id,
-  //     type: response.data.types[0].type.name,
-  //   }
-  // }));
+// nextLink.value = response.data.next;
+// pokemons.value = await Promise.all(response.data.results.map(async (pokemon) => {
+//   const response = await axios.get(pokemon.url);
+//   return {
+//     ...pokemon,
+//     sprite: response.data.sprites.other.home.front_default,
+//     order: response.data.id,
+//     type: response.data.types[0].type.name,
+//   }
+// }));
 // }
 // const filteredPoke = computed(() => {
 //   return pokemons.value.filter((poke) => {
@@ -58,7 +59,9 @@ onMounted(async () => {
 //         includes(input.value.toLowerCase()) : false
 //   })
 // })
+const loading = ref(true)
 async function allPokemons(url) {
+  loading.value = true;
   const response = await axios.get(url);
   pokemonAll.value = await Promise.all(response.data.results.map(async (pokemon) => {
     const response = await axios.get(pokemon.url);
@@ -69,8 +72,9 @@ async function allPokemons(url) {
       type: response.data.types[0].type.name,
     }
   }));
+  loading.value = false;
 }
-
+const pageSize = ref(30)
 const showModal = ref(false);
 
 async function openDetail(detailUrl) {
@@ -83,11 +87,11 @@ const filteredPokemon = computed(() => {
   return pokemonAll.value.filter(pokemon => pokemon.name.toLowerCase().includes(input.value.toLowerCase()))
 })
 const totalPages = computed(() => {
-  return Math.ceil(pokemonAll.value.length / 30)
+  return Math.ceil(pokemonAll.value.length / pageSize.value)
 })
 const paginatedPoke = computed(() => {
-  const startIndex = (currentPage.value - 1) * 30;
-  const endIndex = startIndex + 30;
+  const startIndex = (currentPage.value - 1) * pageSize.value;
+  const endIndex = startIndex + pageSize.value;
   return filteredPokemon.value.slice(startIndex, endIndex);
 })
 const pageRange = computed(() => {
@@ -134,41 +138,46 @@ function toPage(id) {
 </script>
 
 <template>
-  <div class="mx-auto w-full ">
+  <div v-if="loading" class="text-center font-bold text-2xl">
+    <Loader />
+    <div class=" inline-flex items-center animate-pulse">
+      <p>Loading</p><span class="loading loading-dots loading-md"></span>
+    </div>
+
+
+  </div>
+  <div v-else class="mx-auto w-full ">
     <div class="relative flex mb-4 rounded w-max mx-auto">
-      <input type="search" v-model="input"
-        class="input input-bordered w-full max-w-xs mt-8 border-4"
+      <input type="search" v-model="input" class="input input-bordered w-full max-w-xs mt-8 border-2 input-info"
         placeholder="Search">
     </div>
     <div>
-      <ul class="grid grid-cols-2 gap-4 mt-6 w-max mx-auto lg:grid-cols-6">
+      <ul class="grid grid-cols-2 gap-2 mt-6 w-max mx-auto lg:grid-cols-5">
         <li v-for="pokemon in paginatedPoke" :key="pokemon.name"
-          class="hover:-translate-y-2 duration-300 rounded-xl border-4 border-double border-base-content p-0.5">
+          class="hover:-translate-y-2 duration-300 rounded-xl border-4 border-double border-neutral hover:border-warning hover:text-warning p-0.5">
           <div :class="pokemon.type" class="rounded-lg glass">
-            <img class="hover:scale-125 duration-300 mx-auto h-32 drop-shadow-2xl" :src="pokemon.sprite" />
-            <div class="text-center p-1">
-              <button class="font-medium text-sm uppercase hover:text-orange-400 " :href="pokemon.url"
-                @click.prevent="openDetail(pokemon.url)">
-                <p>{{ pokemon.order.toString().padStart(3, '0') }}</p>
-                 <p class="w-44"> {{ pokemon.name }}</p>
-                </button>
-            </div>
+            <img class="hover:scale-125 duration-300 mx-auto " :src="pokemon.sprite" />
+            <button class="font-bold text-sm uppercase " :href="pokemon.url" @click.prevent="openDetail(pokemon.url)">
+              <p>{{ pokemon.order.toString().padStart(3, '0') }}</p>
+              <p class="h-10 w-40"> {{ pokemon.name }}</p>
+            </button>
           </div>
         </li>
       </ul>
       <div class="join my-10 w-fit mx-auto flex">
-        <button @click="previousPage()" class="join-item btn">Previous</button>
+        <button @click="previousPage()" class="join-item btn btn-outline btn-info">Previous</button>
         <div v-for="page in pageRange" class="hidden lg:block">
-          <button :class="{ 'btn-active': currentPage === page }" @click="toPage(page)" class="join-item btn">{{ page
+          <button :class="{ 'btn-active': currentPage === page }" @click="toPage(page)"
+            class="join-item btn btn-outline btn-info">{{ page
             }}</button>
         </div>
-        <button @click="nextPage()" class="join-item btn">Next</button>
+        <button @click="nextPage()" class="join-item btn btn-outline btn-info">Next</button>
       </div>
-        <Teleport to="body">
-      <Transition>
-        <detailed v-if="showModal" :pokek="fullData"  @back="(i) => showModal = i"/>
-      </Transition>
-    </Teleport>
+      <Teleport to="body">
+        <Transition>
+          <detailed class="mt-10" v-if="showModal" :pokek="fullData" @back="(i) => showModal = i" />
+        </Transition>
+      </Teleport>
     </div>
   </div>
 </template>
@@ -182,4 +191,5 @@ function toPage(id) {
 .v-enter-from,
 .v-leave-to {
   opacity: 0;
-}</style>
+}
+</style>

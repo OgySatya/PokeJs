@@ -23,7 +23,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  linkActiveClass: 'text-indigo-500',
+  linkActiveClass: 'text-accent',
 })
 
 // router.beforeEach((to, from, next) => {

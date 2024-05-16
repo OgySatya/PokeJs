@@ -3,8 +3,8 @@ import { ref, onMounted } from "vue";
 import { useRouter } from 'vue-router';
 import { useDark, useToggle } from "@vueuse/core";
 
-const darkMode = useDark();
-const toggelDark = useToggle(darkMode)
+// const darkMode = useDark();
+// const toggelDark = useToggle(darkMode)
 const router = useRouter()
 const name = ref()
 onMounted(() => {
@@ -23,7 +23,7 @@ onMounted(() => {
 
 <template>
     <nav
-        class="flex mx-auto w-full px-2 py-2 sm:px-6 lg:px-10 justify-between navbar bg-neutral text-neutral-content items-center">
+        class="flex mx-auto w-screen px-2 py-2 lg:px-10 justify-between navbar bg-neutral text-neutral-content items-center">
         <div class="flex items-center">
             <svg height="50px" width="50px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.985 511.985" xml:space="preserve"
@@ -55,34 +55,35 @@ onMounted(() => {
                 </g>
             </svg>
             <div class="dropdown ml-4">
-                <div tabindex="0" role="button" class="btn italic font-mono font-extrabold text-2xl lg:text-4xl">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 lg:hidden" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
+                <div tabindex="0" role="button"
+                    class="btn italic font-mono text-2xl  bg-clip-text text-transparent bg-gradient-to-r from-info to-secondary font-black lg:text-4xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 lg:hidden stroke-base-300" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h7" />
                     </svg>
-                    {{ $route.name }}
+                    <p class=""></p> {{ $route.name }}
                 </div>
-                <ul tabindex="0" 
+                <ul tabindex="0"
                     class="lg:hidden menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-fit ">
                     <li
-                        class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-amber-800 hover:scale-110 transition-all dark:text-amber-400 hover:dark:text-gray-200">
+                        class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
                         <RouterLink to="/pokedex">PokeDex</RouterLink>
                     </li>
                     <li
-                        class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-amber-800 hover:scale-110 transition-all dark:text-amber-400 hover:dark:text-gray-200">
+                        class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
                         <RouterLink to="/pokecok">PokeCok</RouterLink>
                     </li>
                     <li
-                        class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-amber-800 hover:scale-110 transition-all dark:text-amber-400 hover:dark:text-gray-200">
+                        class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
                         <RouterLink to="/pokematch">PokeMatch</RouterLink>
                     </li>
                     <li
-                        class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-amber-800 hover:scale-110 transition-all dark:text-amber-400 hover:dark:text-gray-200">
+                        class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
                         <RouterLink to="/pokespin">PokeSpin</RouterLink>
                     </li>
                     <li
-                        class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-amber-800 hover:scale-110 transition-all dark:text-amber-400 hover:dark:text-gray-200">
+                        class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
                         <RouterLink to="/pokecards">PokeCards</RouterLink>
                     </li>
                 </ul>
@@ -90,23 +91,23 @@ onMounted(() => {
         </div>
         <ul class="hidden p-1 lg:flex">
             <li
-                class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-amber-800 hover:scale-110 transition-all dark:text-amber-400 hover:dark:text-gray-200">
+                class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
                 <RouterLink to="/pokedex">PokeDex</RouterLink>
             </li>
             <li
-                class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-amber-800 hover:scale-110 transition-all dark:text-amber-400 hover:dark:text-gray-200">
+                class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
                 <RouterLink to="/pokecok">PokeCok</RouterLink>
             </li>
             <li
-                class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-amber-800 hover:scale-110 transition-all dark:text-amber-400 hover:dark:text-gray-200">
+                class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
                 <RouterLink to="/pokematch">PokeMatch</RouterLink>
             </li>
             <li
-                class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-amber-800 hover:scale-110 transition-all dark:text-amber-400 hover:dark:text-gray-200">
+                class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
                 <RouterLink to="/pokespin">PokeSpin</RouterLink>
             </li>
             <li
-                class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-amber-800 hover:scale-110 transition-all dark:text-amber-400 hover:dark:text-gray-200">
+                class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
                 <RouterLink to="/pokecards">PokeCards</RouterLink>
             </li>
         </ul>
@@ -118,8 +119,9 @@ onMounted(() => {
                     <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
                 </svg>
             </div>
-            <ul tabindex="0" class="dropdown-content z-[1] p-2 shadow-2xl rounded-box w-fit text-neutral bg-neutral-content">
-                <li><input type="radio" name="theme-dropdown" 
+            <ul tabindex="0"
+                class="dropdown-content z-[1] p-2 mt-3 text-base-content bg-base-200 rounded-b-box text-xl">
+                <li><input type="radio" name="theme-dropdown"
                         class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Light"
                         value="light" /></li>
                 <li><input type="radio" name="theme-dropdown"
