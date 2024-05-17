@@ -148,56 +148,56 @@ const explode = async () => {
 </script>
 
 <template>
-  <div class="mx-auto rounded-lx p-4 grid w-max">
-    <div class="mx-auto grid grid-cols-3 gap-5 p-4 " >
+  <div class="mx-auto rounded-lx p-4 inline-flex w-max">
+
+    <div class="mx-auto grid grid-cols-2 gap-2 p-4 w-fit " >
       <template v-for="(pokemon, index) in pokemonPicks.data">
-        <button v-if="pokemon" class="card" @click="pick(index)" :class="pokemon.types[0].type.name">
-        <img class="jpg" :src="pokemon.sprites.other.dream_world.front_default"/>
-        {{ pokemon.name }}</button>
+        <button v-if="pokemon" class="w-52 h-60 btn p-2" @click="pick(index)" :class="pokemon.types[0].type.name">
+        <img class="h-40 mx-auto" :src="pokemon.sprites.other.dream_world.front_default"/>
+        <p class="badge badge-lg badge-warning badge-outline capitalize border-2"> {{ pokemon.name }}</p></button>
         <Loader v-else /> 
       </template>
-      <button @click="pokemonList()" class="col-start-2 inline-flex p-1.5 rounded-xl group bg-gradient-to-br from-teal-300 to-lime-300  hover:scale-110 transition duration-500 ease-in-out">
-        <span class="text-4xl mx-auto px-4 text-orange-500 uppercase font-semibold bg-sky-100 rounded-lg active:text-yellow-400">Let's Go !!!</span>
-      </button>
+    
     </div>
-  
-  <div v-if="pickedPokemon" class="rounded-lg grid grid-cols-2 gap-4 mx-auto">
-      <div class="p-2 border-8 border-double border-zinc-700 rounded-2xl mx-auto">
-      <div v-if="types[1]":class="types[0].type.name" class="h-80 w-80 rounded-xl">
-        <div :class="types[1].type.name" style="border-radius: 50%;" > 
-        <img :src="sprite"/>
+    <div class="grid mx-auto p-4">
+      <div v-if="pickedPokemon" class="border-8 border-double border-warning rounded-2xl mx-auto h-fit">
+      <div v-if="types[1]":class="types[0].type.name" class="rounded-t-lg p-1">
+        <div :class="types[1].type.name" class="rounded-full" > 
+        <img class="h-80 w-80 " :src="sprite"/>
         </div>
      </div>
      <div v-else :class="types[0].type.name" class="h-80 w-80 rounded-xl" >
         <img :src="sprite"/>
      </div>
-     <p class="text-2xl text-center uppercase font-bold">{{ pickedPokemon.name }}</p>
-      <section class="grid grid-cols-2">
-        <div>
-        <div  v-for="(stat, index) in pickedPokemon.stats" :key="index">
-          <div class="mb-0.5 capitalize font-bold">{{ stat.stat.name }}</div>
-            <div class="w-36 ">
-                <div class="bg-violet-500 text-sm rounded-lg pl-2 p-0.5 max-w-40 text-white font-bold reverse" :style="{width: `${stat.base_stat}%`}">{{ stat.base_stat }}</div>
+     <section class=" grid glass rounded-b-lg p-2">
+        <p class="text-2xl text-center uppercase font-bold bg-neutral text-neutral-content rounded-btn mb-1">#{{ pickedPokemon.id }} - {{ pickedPokemon.name }}</p>
+        <div class="flex">
+            <div class="grid grid-cols-1">
+            <div  v-for="(stat, index) in pickedPokemon.stats" :key="index">
+              <div class="mb-0.5 capitalize font-bold">{{ stat.stat.name }}</div>
+                <div class="w-48 ">
+                    <div class="bg-violet-500 text-sm rounded-lg pl-2 p-0.5 max-w-44 text-white font-bold reverse" :style="{width: `${stat.base_stat}%`}">{{ stat.base_stat }}</div>
+                </div>
             </div>
-        </div>
+           </div>
+            <div class="grid"> 
+              <div class="h-fit">
+                    <p class="font-bold text-xl">Ability</p>
+                    <div v-for="ability in abilities" :key="ability">{{ ability.ability.name }}</div>
+                    <p class="font-bold text-xl">Pokemon Type</p> 
+                    <div class="flex gap-2 capitalize mt-1">
+                    <div v-for="element in types" :key="element" :class="element.type.name" class="p-1 px-2 rounded-xl border border-slate-800">{{ element.type.name }}</div>
+                    </div> 
+                  </div>
+            </div>
+        
       </div>
-
-        <div class="m-2"> 
-            <p class="font-bold text-xl">Ability</p>
-              <div class="gap-2 items-center mt-1">
-                <div v-for="ability in abilities" :key="ability">{{ ability.ability.name }}</div>
-              </div>
-
-              <div class="mt-1">
-                <p class="font-bold text-xl">Pokemon Type</p> 
-                <div class="flex gap-2 capitalize mt-1">
-                <div v-for="element in types" :key="element" :class="element.type.name" class="p-1 px-2 rounded-xl border border-slate-800">{{ element.type.name }}</div>
-              </div>
-            </div> 
-            <p class="mt-5 w-28 text-2xl font-bold text-center p-2 border-8 border-double border-zinc-700 rounded-2xl mx-auto">{{ pickedPokemon.id }}</p>
-         </div>
       </section>
-      </div>
+    </div>
+        <button @click="pokemonList()" class="btn glass mx-auto text-2xl mt-4">
+        Generate Pokemon
+        </button>
+        </div>
       <section class="mt-4 mx-auto">
         <ConfettiExplosion class="mx-auto h-full" v-if="visible" :particleSize="10" :duration="3000"/>
           <span  class="grid grid-cols-3 gap-2">
@@ -234,7 +234,7 @@ const explode = async () => {
         </div>
       </section>
           
-    </div>
+    
     
   </div>
 </template>
