@@ -56,7 +56,7 @@ onMounted(() => {
             </svg>
             <div class="dropdown ml-4">
                 <div tabindex="0" role="button"
-                    class="btn italic font-mono text-2xl  bg-clip-text text-transparent bg-gradient-to-r from-info to-secondary font-black lg:text-4xl">
+                    class="btn border-neutral-content border-4 italic font-mono text-2xl  bg-clip-text text-transparent bg-gradient-to-r from-info to-secondary font-black lg:text-4xl">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 lg:hidden stroke-base-300" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -120,34 +120,58 @@ onMounted(() => {
                 </svg>
             </div>
             <ul tabindex="0"
-                class="dropdown-content z-[1] p-2 mt-3 text-base-content bg-base-200 rounded-b-box text-xl">
-                <li><input type="radio" name="theme-dropdown"
-                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Light"
-                        value="light" /></li>
-                <li><input type="radio" name="theme-dropdown"
-                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Dark"
-                        value="dark" /></li>
-                <li><input type="radio" name="theme-dropdown"
-                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Luxury"
-                        value="luxury" /></li>
-                <li><input type="radio" name="theme-dropdown"
-                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Retro"
-                        value="retro" /></li>
-                <li><input type="radio" name="theme-dropdown"
-                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Cyberpunk"
-                        value="cyberpunk" /></li>
-                <li><input type="radio" name="theme-dropdown"
-                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Valentine"
-                        value="valentine" /></li>
-                <li><input type="radio" name="theme-dropdown"
-                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Aqua"
-                        value="aqua" /></li>
-                <li><input type="radio" name="theme-dropdown"
-                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Wireframe"
-                        value="wireframe" /></li>
-                <li><input type="radio" name="theme-dropdown"
-                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Lemonade"
-                        value="lemonade" /></li>
+                class="dropdown-content z-[1] pr-2 mt-3 text-base-content bg-base-200 rounded-b-box text-xl w-max pl-5">
+                <li class="flex items-center justify-between indicator">
+                    <input type="radio" name="theme-dropdown"
+                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start ml-1" aria-label="Light"
+                        value="light" />
+                    <span data-theme="light"
+                        class="indicator-item  indicator-middle indicator-start badge badge-base-300"></span>
+                </li>
+                <li class="flex items-center justify-between indicator"><input type="radio" name="theme-dropdown"
+                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start ml-1" aria-label="Dark"
+                        value="dark" />
+                    <span data-theme="dark"
+                        class="indicator-item  indicator-middle indicator-start badge badge-base-300"></span>
+                </li>
+                <li class="flex items-center justify-between indicator"><input type="radio" name="theme-dropdown"
+                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start ml-1" aria-label="Luxury"
+                        value="luxury" />
+                    <span data-theme="luxury"
+                        class="indicator-item  indicator-middle indicator-start badge badge-base-300"></span>
+                </li>
+                <li class="flex items-center justify-between indicator"><input type="radio" name="theme-dropdown"
+                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start ml-1" aria-label="Retro"
+                        value="retro" />
+                    <span data-theme="retro"
+                        class="indicator-item  indicator-middle indicator-start badge badge-base-300"></span>
+                </li>
+                <li class="flex items-center justify-between indicator"><input type="radio" name="theme-dropdown"
+                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start ml-1"
+                        aria-label="Cyberpunk" value="cyberpunk" />
+                    <span data-theme="cyberpunk"
+                        class="indicator-item  indicator-middle indicator-start badge badge-base-300"></span>
+                </li>
+                <li class="flex items-center justify-between indicator"><input type="radio" name="theme-dropdown"
+                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start ml-1"
+                        aria-label="Valentine" value="valentine" /><span data-theme="valentine"
+                        class="indicator-item  indicator-middle indicator-start badge badge-base-300"></span></li>
+                <li class="flex items-center justify-between indicator"><input type="radio" name="theme-dropdown"
+                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start ml-1" aria-label="Aqua"
+                        value="aqua" /><span data-theme="aqua"
+                        class="indicator-item  indicator-middle indicator-start badge badge-base-300"></span></li>
+                <li class="flex items-center justify-between indicator"><input type="radio" name="theme-dropdown"
+                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start ml-1" aria-label="Coffee"
+                        value="coffee" /><span data-theme="coffee"
+                        class="indicator-item  indicator-middle indicator-start badge badge-base-300"></span></li>
+                <li class="flex items-center justify-between indicator"><input type="radio" name="theme-dropdown"
+                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start ml-1" aria-label="Lemonade"
+                        value="lemonade" /><span data-theme="lemonade"
+                        class="indicator-item  indicator-middle indicator-start badge badge-base-300"></span></li>
+                <li class="flex items-center justify-between indicator"><input type="radio" name="theme-dropdown"
+                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start ml-1" aria-label="Sunset"
+                        value="sunset" /><span data-theme="sunset"
+                        class="indicator-item  indicator-middle indicator-start badge badge-base-300"></span></li>
             </ul>
         </div>
     </nav>

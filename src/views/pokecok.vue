@@ -13,6 +13,9 @@ const shake = ref(false)
 const dadu1 = ref('')
 const dadu2 = ref('')
 const dadu3 = ref('')
+const type1 = ref('')
+const type2 = ref('')
+const type3 = ref('')
 const riwayat = ref([])
 const list = ref([])
 const play = ref('')
@@ -70,26 +73,26 @@ async function mejudi() {
   const pick = pokemonPicks.data[pickedIndex.value].id;
 
   if (hasil1.id === pick) {
-    ++uang ;
+    ++uang;
   }
   if (hasil2.id === pick) {
-    ++uang ;
+    ++uang;
   }
   if (hasil3.id === pick) {
-    ++uang ;
+    ++uang;
   }
 
-  if(uang === 0) {
+  if (uang === 0) {
     saldo = saldo - bet.value;
-    list.value.unshift('Lose -'+ bet.value); 
+    list.value.unshift('Lose -' + bet.value);
     setTimeout(() => {
       History.value.push(false);
     }, 1500)
-  }else {
+  } else {
     saldo = saldo + (uang * bet.value);
-    list.value.unshift('Win  +'+ uang * bet.value); 
+    list.value.unshift('Win  +' + uang * bet.value);
     setTimeout(() => {
-      explode ()
+      explode()
       History.value.push(true);
     }, 1500)
   }
@@ -100,22 +103,28 @@ async function mejudi() {
   }, 1800)
   riwayat.value.unshift(list.value[1])
 
-  setTimeout( () => {dadu1.value= hasil1.sprites.other.dream_world.front_default;
-                     }, 1100)
-  setTimeout( () => {dadu2.value= hasil2.sprites.other.dream_world.front_default;
-                     }, 1300)
-  setTimeout( () => {dadu3.value= hasil3.sprites.other.dream_world.front_default;
-                     }, 1500)
+  setTimeout(() => {
+    dadu1.value = hasil1.sprites.other.dream_world.front_default;
+    type1.value = hasil1.types[0].type.name;
+  }, 1100)
+  setTimeout(() => {
+    dadu2.value = hasil2.sprites.other.dream_world.front_default;
+    type2.value = hasil2.types[0].type.name;
+  }, 1300)
+  setTimeout(() => {
+    dadu3.value = hasil3.sprites.other.dream_world.front_default;
+    type3.value = hasil3.types[0].type.name;
+  }, 1500)
 
-  if(money.value <= 0) {
-    alert( 'Mulih malu Jon!!!')
+  if (money.value <= 0) {
+    alert('Mulih malu Jon!!!')
   }
-  if(riwayat.value.length > 10) {
+  if (riwayat.value.length > 10) {
     riwayat.value.pop();
   }
 }
 
-function reset () {
+function reset() {
   localStorage.clear()
   riwayat.value = []
   money.value = 100000
@@ -129,14 +138,14 @@ function goyang() {
     disabled.value = true
   }, 1600)
 }
-function allIn () {
+function allIn() {
   bet.value = money.value
 }
-function halfMoney () {
-  bet.value = money.value / 2 ;
+function halfMoney() {
+  bet.value = money.value / 2;
 }
-function quarter () {
-  bet.value = money.value / 4 ;
+function quarter() {
+  bet.value = money.value / 4;
 }
 const visible = ref(false);
 
@@ -148,156 +157,206 @@ const explode = async () => {
 </script>
 
 <template>
-  <div class="mx-auto rounded-lx p-4 inline-flex w-max">
-
-    <div class="mx-auto grid grid-cols-2 gap-2 p-4 w-fit " >
-      <template v-for="(pokemon, index) in pokemonPicks.data">
-        <button v-if="pokemon" class="w-52 h-60 btn p-2" @click="pick(index)" :class="pokemon.types[0].type.name">
-        <img class="h-40 mx-auto" :src="pokemon.sprites.other.dream_world.front_default"/>
-        <p class="badge badge-lg badge-warning badge-outline capitalize border-2"> {{ pokemon.name }}</p></button>
-        <Loader v-else /> 
-      </template>
-    
-    </div>
-    <div class="grid mx-auto p-4">
-      <div v-if="pickedPokemon" class="border-8 border-double border-warning rounded-2xl mx-auto h-fit">
-      <div v-if="types[1]":class="types[0].type.name" class="rounded-t-lg p-1">
-        <div :class="types[1].type.name" class="rounded-full" > 
-        <img class="h-80 w-80 " :src="sprite"/>
-        </div>
-     </div>
-     <div v-else :class="types[0].type.name" class="h-80 w-80 rounded-xl" >
-        <img :src="sprite"/>
-     </div>
-     <section class=" grid glass rounded-b-lg p-2">
-        <p class="text-2xl text-center uppercase font-bold bg-neutral text-neutral-content rounded-btn mb-1">#{{ pickedPokemon.id }} - {{ pickedPokemon.name }}</p>
-        <div class="flex">
-            <div class="grid grid-cols-1">
-            <div  v-for="(stat, index) in pickedPokemon.stats" :key="index">
-              <div class="mb-0.5 capitalize font-bold">{{ stat.stat.name }}</div>
-                <div class="w-48 ">
-                    <div class="bg-violet-500 text-sm rounded-lg pl-2 p-0.5 max-w-44 text-white font-bold reverse" :style="{width: `${stat.base_stat}%`}">{{ stat.base_stat }}</div>
-                </div>
-            </div>
-           </div>
-            <div class="grid"> 
-              <div class="h-fit">
-                    <p class="font-bold text-xl">Ability</p>
-                    <div v-for="ability in abilities" :key="ability">{{ ability.ability.name }}</div>
-                    <p class="font-bold text-xl">Pokemon Type</p> 
-                    <div class="flex gap-2 capitalize mt-1">
-                    <div v-for="element in types" :key="element" :class="element.type.name" class="p-1 px-2 rounded-xl border border-slate-800">{{ element.type.name }}</div>
-                    </div> 
-                  </div>
-            </div>
-        
+  <div class="mx-auto mt-4 grid lg:flex w-fit">
+    <div class="grid">
+      <div class="mx-auto grid grid-cols-3 gap-3 py-4 w-fit lg:grid-cols-2 ">
+        <template v-for="(pokemon, index) in pokemonPicks.data">
+          <button v-if="pokemon" class="h-max grid btn lg:ring-4 ring-accent p-2" @click="pick(index)"
+            :class="pokemon.types[0].type.name, { 'ring-4 ring-error': pickedIndex === index }">
+            <img class="w-20 h-20 lg:h-40 lg:w-40 mx-auto" :src="pokemon.sprites.other.dream_world.front_default" />
+            <p class="btn btn-sm btn-neutral capitalize lg:text-xl"> {{ pokemon.name }}</p>
+          </button>
+          <Loader class="w-20 h-28 lg:w-44 lg:h-56 btn ring-4 ring-accent p-2" v-else />
+        </template>
       </div>
-      </section>
-    </div>
-        <button @click="pokemonList()" class="btn glass mx-auto text-2xl mt-4">
+      <button @click="pokemonList()" class="btn bg-gradient-to-r from-primary to-accent text-base-100 mx-auto text-2xl">
         Generate Pokemon
-        </button>
-        </div>
-      <section class="mt-4 mx-auto">
-        <ConfettiExplosion class="mx-auto h-full" v-if="visible" :particleSize="10" :duration="3000"/>
-          <span  class="grid grid-cols-3 gap-2">
-              <img :class="{shake: shake}" class="p-2 border-4 border-orange-200 ring-4 ring-offset-2 ring-lime-300 rounded-lg w-32 h-32" :src="dadu1" />
-              <img :class="{shake: shake}" class="p-2 border-4 border-orange-200 ring-4 ring-offset-2 ring-lime-300 rounded-lg w-32 h-32" :src="dadu2" />
-              <img :class="{shake: shake}" class="p-2 border-4 border-orange-200 ring-4 ring-offset-2 ring-lime-300 rounded-lg w-32 h-32" :src="dadu3" />
-            <button class="mx-auto col-start-2 w-24 mt-2.5 p-1 px-4 font-bold text-xl rounded-xl text-gray-800 outline-double outline-3 outline-offset-2 border-2 border-indigo-400 hover:text-orange-700"
-             @click="goyang(), mejudi()">KocoK</button>
-          </span>
-            <div class="h-10 -mb-4 mt-6">
-              <p v-if="disabled" class="text-center font-extrabold text-2xl text-emerald-800 animate-bounce">{{ play }}</p>
+      </button>
+    </div>
+    <main class="flex p-4">
+      <div class=" mx-auto border-8 border-double border-accent rounded-btn h-fit hidden lg:grid ">
+        <div v-if="pickedPokemon" class="mx-auto">
+          <div v-if="types[1]" :class="types[0].type.name" class=" p-1">
+            <div :class="types[1].type.name" class="rounded-full">
+              <img class="h-96 w-96 " :src="sprite" />
             </div>
-            
-          <div class="grid grid-cols-2 gap-1">
-            <div class="p-3">
-            <p class="font-bold text-xl">Place your Bet</p>
-            <input type="number" class="border-2 my-3 px-2 w-40 ring-offset-2 ring-4 border-teal-400 rounded-md" v-model="bet"> <br>
-            <button class="rounded-xl border-2 mr-1 p-1 px-2 border-violet-500 focus:ring-2 focus:ring-amber-600" @click="allIn()"> All In </button> 
-            <button class="rounded-xl border-2 m-1 p-1 px-2 border-violet-500 focus:ring-2 focus:ring-amber-600" @click="halfMoney()"> Half </button> 
-            <button class="rounded-xl border-2 m-1 p-1 px-2 border-violet-500 focus:ring-2 focus:ring-amber-600" @click="quarter()"> Quarter </button> 
-            <p class="font-bold text-xl">Your Uang </p>
-            <span class="font-bold text-2xl text-violet-800">Rp. {{ money }}</span>
-           </div>
-          
-           <div class="p-3 my-3">
+          </div>
+          <div v-else :class="types[0].type.name" class="p-1">
+            <img class="h-96 w-96  " :src="sprite" />
+          </div>
+          <section class="glass rounded-b-lg p-2 h-auto grid">
+            <p class="text-2xl text-center uppercase font-bold bg-neutral text-neutral-content rounded-btn mb-1">#{{
+          pickedPokemon.id }} - {{ pickedPokemon.name }}</p>
+            <div class="flex">
+              <div class="grid grid-cols-1 mr-4">
+                <div v-for="(stat, index) in pickedPokemon.stats" :key="index">
+                  <div class="capitalize font-bold">{{ stat.stat.name }} : {{ stat.base_stat
+                    }}</div>
+                  <progress class="progress progress-secondary w-44" :value="stat.base_stat / 2" max="100"></progress>
+                </div>
+              </div>
+              <div class="grid">
+                <div class="h-max">
+                  <p class="font-bold text-xl">Ability</p>
+                  <div v-for="ability in abilities" :key="ability">{{ ability.ability.name }}</div>
+                  <p class="font-bold text-xl">Pokemon Type</p>
+                  <div class="flex gap-2 capitalize mt-1">
+                    <div v-for="element in types" :key="element" :class="element.type.name"
+                      class="p-1 px-2 rounded-xl border border-neutral">{{ element.type.name }}</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </section>
+        </div>
+        <div v-else class="w-96 mx-auto">
+          <div class="flex flex-col gap-4 w-max mx-auto p-5">
+            <div class="skeleton h-80 w-80 "></div>
+            <div class="skeleton h-8 w-80"></div>
+            <div class="flex justify-between">
+              <div class="skeleton h-4 w-20"></div>
+              <div class="skeleton h-4 w-28"></div>
+              <div class="skeleton h-4 w-20"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section class="px-4 mt-1 mx-auto w-screen lg:w-max">
+        <ConfettiExplosion class="mx-auto h-full absolute overflow-hidden" v-if="visible" :particleSize="10"
+          :duration="3000" />
+        <span class="flex justify-between mx-auto px-10 lg:p-0">
+          <img :class="{ shake: shake }, type1" class="p-2 lg:ring-4 ring-accent rounded-btn w-20 h-20 lg:w-32 lg:h-32"
+            :src="dadu1" />
+          <img :class="{ shake: shake }, type2" class="p-2 lg:ring-4 ring-accent rounded-btn w-20 h-20 lg:w-32 lg:h-32"
+            :src="dadu2" />
+          <img :class="{ shake: shake }, type3" class="p-2 lg:ring-4 ring-accent rounded-btn w-20 h-20 lg:w-32 lg:h-32"
+            :src="dadu3" />
+        </span>
+        <button class="btn bg-gradient-to-r from-primary to-accent text-base-100 mx-auto text-2xl flex mt-4"
+          @click="goyang(), mejudi()">KocoK</button>
+        <div class="mt-4">
+          <p v-if="disabled" class="h-8 text-center font-extrabold text-2xl text-base-content animate-bounce">{{ play
+            }}
+          </p>
+          <p v-else class="h-8"></p>
+        </div>
+
+        <div class="lg:flex grid text-info border-4 border-accent rounded-btn">
+
+          <div class="p-3 inline-block">
+            <p class="text-2xl text-center font-bold bg-warning text-base-100 rounded-btn mb-1">
+              ShopeePay
+            </p>
+            <p class=" text-center font-black text-primary text-2xl">Rp.{{ money }}</p>
+            <div>
+              <p class="font-bold text-xl mt-3">Place your Bet</p>
+              <input v-model="bet" type="number" step="1000"
+                class="my-2 h-8 text-primary font-bold input input-bordered input-info w-full max-w-xs" />
+              <div class="flex gap-4">
+                <button class="btn btn-neutral btn-outline btn-sm" @click="allIn()"> All In </button>
+                <button class="btn btn-neutral btn-outline btn-sm mx-2" @click="halfMoney()"> Half </button>
+                <button class="btn btn-neutral btn-outline btn-sm" @click="quarter()"> Quarter </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3 grid ">
             <p>Win: {{ winRate.winCount }} || Lose: {{ winRate.loseCount }} </p>
             <p class="font-bold">Rate: {{ winRate.rate }}%</p>
-            <ul class="border-2 border-dashed border-red-700 p-3 pt-1 h-64 rounded-lg background-image: linear-gradient(to right, red , yellow);" v-if="list">
-            <li v-for="item of riwayat">{{ item }}</li>
-           </ul>
-           <button class="mt-4 text-red-700 font-bold hover:text-white border border-red-700 hover:bg-red-800 ring-4  ring-red-300 rounded-lg px-3 py-1 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900" 
+            <ul class="bg-neutral text-neutral-content p-3 pt-1 h-32 lg:h-64 my-2 rounded-btn overflow-hidden"
+              v-if="list">
+              <li v-for="item of riwayat">{{ item }}</li>
+            </ul>
+            <button class="btn bg-gradient-to-r from-primary to-accent text-base-100 btn-sm mt-2"
               @click="reset()">Reset</button>
           </div>
         </div>
       </section>
-          
-    
-    
+    </main>
   </div>
 </template>
 
 <style>
 .ground {
-  background-color:#945400c7;
+  background-color: #945400c7;
 }
+
 .rock {
-  background-color:#d4cfc6c7;
+  background-color: #d4cfc6c7;
 }
+
 .ghost {
-  background-color:#dbd9d5c7;
+  background-color: #dbd9d5c7;
 }
+
 .electric {
-  background-color: #fffc45c7}
+  background-color: #fffc45c7
+}
+
 .bug {
   background-color: #508b2dc7;
 }
+
 .poison {
   background-color: #ca7de9c7;
 }
+
 .normal {
-  background-color:#e0eff0c7;
+  background-color: #e0eff0c7;
 }
+
 .fairy {
-  background-color: #F6D6A7c7}
+  background-color: #F6D6A7c7
+}
+
 .fire {
   background-color: #ff5436c7;
 }
+
 .grass {
-  background-color:#b2f8b0c7;
+  background-color: #b2f8b0c7;
 }
+
 .water {
-  background-color:#46bdf5c7;
+  background-color: #46bdf5c7;
 }
+
 .fighting {
-  background-color:#756b49c7;
+  background-color: #756b49c7;
 }
+
 .psychic {
-  background-color:#351e38c7;
+  background-color: #351e38c7;
 }
+
 .ice {
-  background-color:#8eb3ddc7;
+  background-color: #8eb3ddc7;
 }
+
 .dragon {
-  background-color:#ca8b14c7;
+  background-color: #ca8b14c7;
 }
+
 .dark {
-  background-color:#2b2a2ac7;
+  background-color: #2b2a2ac7;
 }
+
 .steel {
-  background-color:#dbdbdbc7;
+  background-color: #dbdbdbc7;
 }
+
 .flying {
-  background-color:#879c7bc7;
+  background-color: #879c7bc7;
 }
+
 .shake {
   animation: shake 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: translate3d(0, 0, 0);
 }
 
 @keyframes shake {
+
   10%,
   90% {
     transform: translate3d(-1px, 0, 0);
