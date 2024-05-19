@@ -29,7 +29,7 @@ async function fetchPokemon(pokemonId) {
 }
 function pokemonList() {
   pokemonPicks.data.forEach(async (pokemon, index) => {
-    const id = Math.floor(Math.random() * 251);
+    const id = Math.floor(Math.random() * 649);
     const response = await fetchPokemon(id);
     const data = await response.json();
     pokemonPicks.data[index] = data;
@@ -157,26 +157,28 @@ const explode = async () => {
 </script>
 
 <template>
-  <div class="mx-auto mt-4 grid lg:flex w-fit">
+  <div class="mx-auto p-2 lg:flex lg:w-max">
     <div class="grid">
-      <div class="mx-auto grid grid-cols-3 gap-3 py-4 w-fit lg:grid-cols-2 ">
+      <div class="mx-auto grid grid-cols-3 gap-3 py-4 w-full lg:grid-cols-2 ">
         <template v-for="(pokemon, index) in pokemonPicks.data">
-          <button v-if="pokemon" class="h-max grid btn lg:ring-4 ring-accent p-2" @click="pick(index)"
-            :class="pokemon.types[0].type.name, { 'ring-4 ring-error': pickedIndex === index }">
-            <img class="w-20 h-20 lg:h-40 lg:w-40 mx-auto" :src="pokemon.sprites.other.dream_world.front_default" />
-            <p class="btn btn-sm btn-neutral capitalize lg:text-xl"> {{ pokemon.name }}</p>
+          <button v-if="pokemon"
+            class="grid text-neutral-content btn lg:ring-4 ring-accent p-2 w-28 h-36 lg:w-44 lg:h-56 hover:text-error"
+            @click="pick(index)" :class="pokemon.types[0].type.name, { 'ring-4 ring-error': pickedIndex === index }">
+            <img class=" mx-auto w-24 h-24 lg:w-40 lg:-40 hover:scale-125 duration-300 "
+              :src="pokemon.sprites.other.dream_world.front_default" />
+            <p class="bg-neutral py-0.5 rounded-btn capitalize lg:text-xl"> {{ pokemon.name }}</p>
           </button>
-          <Loader class="w-20 h-28 lg:w-44 lg:h-56 btn ring-4 ring-accent p-2" v-else />
+          <Loader class=" w-28 h-36 lg:w-44 lg:h-56 btn ring-4 ring-accent p-2" v-else />
         </template>
       </div>
       <button @click="pokemonList()" class="btn bg-gradient-to-r from-primary to-accent text-base-100 mx-auto text-2xl">
         Generate Pokemon
       </button>
     </div>
-    <main class="flex p-4">
-      <div class=" mx-auto border-8 border-double border-accent rounded-btn h-fit hidden lg:grid ">
-        <div v-if="pickedPokemon" class="mx-auto">
-          <div v-if="types[1]" :class="types[0].type.name" class=" p-1">
+    <main class="flex lg:p-4">
+      <div class=" mx-auto border-8 overflow-hidden border-double border-accent rounded-btn h-fit hidden lg:grid ">
+        <div v-if="pickedPokemon" class="mx-auto ">
+          <div v-if="types[1]" :class="types[0].type.name" class="p-1">
             <div :class="types[1].type.name" class="rounded-full">
               <img class="h-96 w-96 " :src="sprite" />
             </div>
@@ -184,7 +186,7 @@ const explode = async () => {
           <div v-else :class="types[0].type.name" class="p-1">
             <img class="h-96 w-96  " :src="sprite" />
           </div>
-          <section class="glass rounded-b-lg p-2 h-auto grid">
+          <section class="glass p-2 h-auto grid">
             <p class="text-2xl text-center uppercase font-bold bg-neutral text-neutral-content rounded-btn mb-1">#{{
           pickedPokemon.id }} - {{ pickedPokemon.name }}</p>
             <div class="flex">
@@ -222,7 +224,7 @@ const explode = async () => {
           </div>
         </div>
       </div>
-      <section class="px-4 mt-1 mx-auto w-screen lg:w-max">
+      <section class=" mt-4 mx-auto w-full lg:w-max lg:px-4 lg:mt-0">
         <ConfettiExplosion class="mx-auto h-full absolute overflow-hidden" v-if="visible" :particleSize="10"
           :duration="3000" />
         <span class="flex justify-between mx-auto px-10 lg:p-0">
@@ -242,29 +244,28 @@ const explode = async () => {
           <p v-else class="h-8"></p>
         </div>
 
-        <div class="lg:flex grid text-info border-4 border-accent rounded-btn">
-
-          <div class="p-3 inline-block">
+        <div class="flex text-info border-4 border-accent rounded-btn w-full lg:p-4">
+          <div class="p-2">
             <p class="text-2xl text-center font-bold bg-warning text-base-100 rounded-btn mb-1">
               ShopeePay
             </p>
             <p class=" text-center font-black text-primary text-2xl">Rp.{{ money }}</p>
-            <div>
+            <div class=" inline-grid">
               <p class="font-bold text-xl mt-3">Place your Bet</p>
               <input v-model="bet" type="number" step="1000"
-                class="my-2 h-8 text-primary font-bold input input-bordered input-info w-full max-w-xs" />
-              <div class="flex gap-4">
+                class="my-2 h-8 text-primary font-bold input input-bordered input-info w-44 lg:w-max" />
+              <div class="inline-grid px-8 lg:flex lg:justify-between lg:px-0">
                 <button class="btn btn-neutral btn-outline btn-sm" @click="allIn()"> All In </button>
-                <button class="btn btn-neutral btn-outline btn-sm mx-2" @click="halfMoney()"> Half </button>
+                <button class="btn btn-neutral btn-outline btn-sm" @click="halfMoney()"> Half </button>
                 <button class="btn btn-neutral btn-outline btn-sm" @click="quarter()"> Quarter </button>
               </div>
             </div>
           </div>
 
-          <div class="p-3 grid ">
+          <div class="p-2 grid ">
             <p>Win: {{ winRate.winCount }} || Lose: {{ winRate.loseCount }} </p>
             <p class="font-bold">Rate: {{ winRate.rate }}%</p>
-            <ul class="bg-neutral text-neutral-content p-3 pt-1 h-32 lg:h-64 my-2 rounded-btn overflow-hidden"
+            <ul class="bg-base-300 text-base-content p-3 pt-1 h-32 lg:h-64 my-2 rounded-btn overflow-hidden"
               v-if="list">
               <li v-for="item of riwayat">{{ item }}</li>
             </ul>
