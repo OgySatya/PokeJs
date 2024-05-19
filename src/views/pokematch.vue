@@ -150,22 +150,23 @@ const explode = async () => {
       <span class="bg-base-300 rounded-md font-bold p-2">Attempt : {{ attempt }}</span>
       <span class="bg-base-300 rounded-md font-bold p-2">Time : {{ time }}s</span>
     </div>
-    <div class="mx-auto grid grid-cols-4 gap-2 lg:grid-cols-8">
+    <div class="mx-auto grid grid-cols-4 gap-1 lg:gap-3 lg:grid-cols-8">
       <template v-for="(pokemon, index) in cards.value" :key="index">
-        <button v-if="pokemon" class="w-24 h-28" @click="pick(pokemon.id, index)" :key="index">
+        <button v-if="pokemon" class="w-24 h-28 lg:w-32 lg:h-40" @click="pick(pokemon.id, index)" :key="index">
           <div v-if="pokemon.flipped" :class="{ flip: pokemon.flipped }"
-            class="w-24 h-28 bg-gradient-to-br from-primary via-secondary to-accent rounded-btn border-4 hover:border-neutral">
+            class="w-24 h-28 lg:w-32 lg:h-40 bg-gradient-to-br from-primary via-secondary to-accent rounded-btn border-2 lg:border-4 hover:border-neutral">
           </div>
           <div v-else
             :class="pokemon.types[0].type.name, { shake: pokemon.held_items.is_default }, { flip: !pokemon.flipped }"
-            class="w-24 h-28 border-4 rounded-lg border-double border-neutral mx-auto">
-            <img class=" mx-auto w-20 h-20 front-face p-1" :src="pokemon.sprites.other.dream_world.front_default" />
+            class="w-24 h-28 lg:w-32 lg:h-40 border-2 lg:border-8 rounded-lg border-double border-neutral mx-auto">
+            <img class=" mx-auto w-20 h-20 lg:w-28 lg:h-28 p-1"
+              :src="pokemon.sprites.other.dream_world.front_default" />
             <p class=" badge badge-base-300 capitalize text-xs font-medium">{{ pokemon.name }}</p>
           </div>
         </button>
         <div v-else>
           <div
-            class="w-24 h-28 animate-pulse border-8 rounded-lg border-double border-neutral mx-auto flex items-center">
+            class="w-24 h-28 lg:w-32 lg:h-40 animate-pulse border-2 lg:border-8 rounded-lg border-double border-neutral mx-auto flex items-center">
             <svg class="mx-auto fill-neutral" fill="#000000" width="70px" height="70px" viewBox="0 0 512 512"
               data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg">
               <title />
