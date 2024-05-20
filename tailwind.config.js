@@ -6,7 +6,29 @@ export default {
   ],
   theme: {
     extend: {},
+    colors: {
+      'ground' :'#945400c7',
+      'rock' :'#d4cfc6c7',
+      'ghost' :'#dbd9d5c7',
+      'electric' :'#fffc45c7',
+      'bug' :'#508b2dc7',
+      'poison' :'#ca7de9c7',
+      'normal' :'#e0eff0c7',
+      'fair':'#F6D6A7c7',
+      'fire' :'#ff5436c7',
+      'grass' :'#b2f8b0c7',
+      'water' :'#46bdf5c7',
+      'fighting' :'#756b49c7',
+      'psychic' :'#351e38c7',
+      'ice' :'#8eb3ddc7',
+      'dragon' :'#ca8b14c7',
+      'dark' :'#2b2a2ac7',
+      'steel' :'#dbdbdbc7',
+      'flying' :'#879c7bc7',
+      
+    },
   },
+
   plugins: [
     require('daisyui'),
   ],

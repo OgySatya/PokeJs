@@ -23,7 +23,7 @@ onMounted(() => {
 
 <template>
     <nav
-        class="flex mx-auto w-screen px-2 py-2 lg:px-10 justify-between navbar bg-neutral text-neutral-content items-center">
+        class="flex mx-auto w-full px-2 py-2 lg:px-10 justify-between navbar bg-neutral text-neutral-content items-center">
         <div class="flex items-center">
             <svg height="50px" width="50px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.985 511.985" xml:space="preserve"
@@ -56,7 +56,7 @@ onMounted(() => {
             </svg>
             <div class="dropdown ml-4">
                 <div tabindex="0" role="button"
-                    class="btn border-neutral-content border-4 italic font-mono text-2xl  bg-clip-text text-transparent bg-gradient-to-r from-info to-secondary font-black lg:text-4xl">
+                    class="btn border-neutral-content border-4 italic font-mono text-xl  bg-clip-text text-transparent bg-gradient-to-r from-accent to-secondary font-black lg:text-4xl">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 lg:hidden stroke-base-300" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

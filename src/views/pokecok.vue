@@ -178,7 +178,7 @@ const explode = async () => {
     <main class="flex lg:p-4">
       <div class=" mx-auto border-8 overflow-hidden border-double border-accent rounded-btn h-fit hidden lg:grid ">
         <div v-if="pickedPokemon" class="mx-auto ">
-          <div v-if="types[1]" :class="types[0].type.name" class="p-1">
+          <div v-if="types[1]" :class="'bg-' + types[0].type.name" class="p-1">
             <div :class="types[1].type.name" class="rounded-full">
               <img class="h-96 w-96 " :src="sprite" />
             </div>
