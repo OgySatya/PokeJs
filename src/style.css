@@ -3,5 +3,74 @@
 @tailwind utilities;
 
 @layer components {
+  .ground {
+    @apply bg-gradient-to-br from-[#945400c7] via-white to-[#945400c7] 
+  }
   
+  .rock {
+    @apply bg-[#d4cfc6c7] 
+  }
+  
+  .ghost {
+    @apply bg-[#dbd9d5c7] 
+  }
+  
+  .electric {
+    @apply bg-[#fffc45c7]
+  }
+  
+  .bug {
+    @apply bg-[#377116c7] 
+  }
+  
+  .poison {
+    @apply bg-[#ca7de9c7] 
+  }
+  
+  .normal {
+    @apply bg-[#e0eff0c7] 
+  }
+  
+  .fairy {
+    @apply bg-[#ffb0bac7]   }
+  
+  .fire {
+    @apply bg-[#ff5436c7] 
+  }
+  
+  .grass {
+    @apply bg-[#b2f8b0c7] 
+  }
+  
+  .water {
+    @apply bg-[#46bdf5c7] 
+  }
+  
+  .fighting {
+    @apply bg-[#756b49c7] 
+  }
+  
+  .psychic {
+    @apply bg-[#351e38c7] 
+  }
+  
+  .ice {
+    @apply bg-[#8eb3ddc7] 
+  }
+  
+  .dragon {
+    @apply bg-[#ca8b14c7] 
+  }
+  
+  .dark {
+    @apply bg-[#2b2a2ac7] 
+  }
+  
+  .steel {
+    @apply bg-[#dbdbdbc7] 
+  }
+  
+  .flying {
+    @apply bg-[#879c7bc7] 
+  }
   }
