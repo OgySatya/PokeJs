@@ -46,12 +46,10 @@ onMounted(() => {
   searchCards()
   getSets()
   getTypes()
-  // getRarity()
 })
 async function searchCards() {
   loading.value = true;
   selectedCard.value = ''
-  // let url = `https://api.pokemontcg.io/v2/cards?q=name:${inputName.value}*&page=${currentPage.value}&pageSize=${pageSize.value}`
   let url = "https://api.pokemontcg.io/v2/cards"
   let searchQuery = "";
   const params = {
@@ -98,10 +96,6 @@ async function getTypes() {
   const response = await axios.get('https://api.pokemontcg.io/v2/types');
   cardTypes.value = response.data.data;
 }
-// async function getRarity() {
-//     const response = await axios.get('https://api.pokemontcg.io/v2/rarities');
-//     cardRarity.value = response.data.data;
-// }
 async function nextPage() {
   ++currentPage.value;
   searchCards();
@@ -158,46 +152,98 @@ function gotoPage(value) {
 }
 </script>
 <template>
+
   <div class="mx-auto p-4">
+
     <div v-if="loading" class="text-center font-bold text-2xl">
       <Loader />
       <p class="animate-pulse">Loading....</p>
     </div>
     <div v-else>
-      <form class="flex w-64 items-center mx-auto" @submit.prevent="newSearch">
-        <input v-model="inputName" type="text"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
-        <button type="submit"
-          class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-          <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-          </svg>
-        </button>
-      </form>
-      <div class="flex mt-2 justify-between px-3">
-        <div class=" inline-flex border-4 ">
+      <aside class="flex">
+        <div class="drawer grid lg:hidden">
+          <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+          <div class="drawer-content">
+            <label for="my-drawer" class="btn btn-secondary btn-xs drawer-button"><svg class="w-6 h-6 text-accent"
+                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
+              </svg>
+            </label>
+          </div>
+          <div class="drawer-side">
+            <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+            <ul class="menu p-4 w-fit h-full bg-base-300 text-base-content text-xs">
+              <span class="font-bold text-neutral">Filter</span>
+              <li class="">
+                <P>Card Set : </P>
+                <select v-model="selectedSet" @change="newSearch" class="w-32">
+                  <option v-for="set in cardSets" :key="set.id" :value="set.id" class="capitalize text-xs">{{
+      set.name }}</option>
+                </select>
+              </li>
+              <li class=" ">
+                <P>Card Type : </P>
+                <select v-model="selectedType" class="w-32" @change="newSearch">
+                  <option v-for="cardType in cardTypes" :key="cardType.id" class="capitalize text-xs">{{
+      cardType
+    }}
+                  </option>
+                </select>
+              </li>
+              <li class=" ">
+                <P>Card Rarity : </P>
+                <select v-model="selectedRarity" class="w-32" @change="newSearch">
+                  <option v-for="rare in cardRarity" :key="rare.id" class="capitalize text-xs">{{ rare }}
+                  </option>
+                </select>
+              </li>
+              <li class=" ">
+                <P>Sort by Name : </P>
+                <select v-model="sort" class="w-32" @change="newSearch">
+                  <option value="name">Asc</option>
+                  <option value="-name">Dsc</option>
+                </select>
+              </li>
+              <p class="font-bold text-neutral mt-5">Total Card : {{ cards.totalCount }}</p>
+            </ul>
+          </div>
+        </div>
+        <form class="flex items-center mx-auto" @submit.prevent="newSearch">
+          <input v-model="inputName" type="text"
+            class="input input-bordered w-full h-6 lg:h-8 max-w-md border-secondary" />
+          <button type="submit" class="btn btn-xs lg:btn-sm btn-secondary mx-2">
+            <svg class="text-accent" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
+            </svg>
+          </button>
+        </form>
+      </aside>
+      <aside class="mt-2 justify-between px-3 hidden lg:flex">
+        <div class=" inline-flex bg-white rounded-btn border-2 border-secondary px2 text-accent ">
           <P class="px-2">Card Set : </P>
           <select v-model="selectedSet" class="capitalize" @change="newSearch">
-            <option v-for="set in cardSets" :key="set.id" :value="set.id" class="hover:scale-110 duration-300">{{
+            <option v-for="set in cardSets" :key="set.id" :value="set.id">{{
       set.name }}</option>
           </select>
         </div>
-        <div class=" inline-flex border-4 ">
+        <div class="inline-flex bg-white rounded-btn border-2 border-secondary px2 text-accent">
           <P class="px-2">Card Type : </P>
           <select v-model="selectedType" class="capitalize" @change="newSearch">
-            <option v-for="cardType in cardTypes" :key="cardType.id" class="hover:scale-110 duration-300">{{ cardType }}
+            <option v-for="cardType in cardTypes" :key="cardType.id">{{ cardType }}
             </option>
           </select>
         </div>
-        <div class=" inline-flex border-4 ">
+        <div class="inline-flex bg-white rounded-btn border-2 border-secondary px2 text-accent">
           <P class="px-2">Card Rarity : </P>
           <select v-model="selectedRarity" class="capitalize" @change="newSearch">
-            <option v-for="rare in cardRarity" :key="rare.id" class="hover:scale-110 duration-300">{{ rare }}</option>
+            <option v-for="rare in cardRarity" :key="rare.id">{{ rare }}</option>
           </select>
         </div>
-        <div class=" inline-flex border-4 px2 ">
-          <P class="px-2">Sort by Name : </P>
+        <div class=" inline-flex bg-white rounded-btn border-2 border-secondary px2 text-accent">
+          <P class="px-2 ">Sort by Name : </P>
           <select v-model="sort" class="capitalize" @change="newSearch">
             <option value="name">Asc</option>
             <option value="-name">Dsc</option>
@@ -205,21 +251,20 @@ function gotoPage(value) {
         </div>
 
 
-        <p class="font-bold">Total Card : {{ cards.totalCount }}</p>
-      </div>
+        <p class="badge badge-lg badge-neutral badge-outline border-2 text-accent">Total Card : {{ cards.totalCount
+          }}</p>
+      </aside>
 
-      <ul class="grid grid-cols-10 gap-3 text-xs mt-4">
+      <ul class="grid grid-cols-4 gap-1 text-xs mt-4 lg:grid-cols-10 lg:gap-3">
         <li v-for="card in cards.data" :key="card.id" class="hover:scale-110 duration-300 ">
-          <button @click="openDetail(card.id)">
-            <p class="font-medium text-center">{{ card.name }}</p>
-            <img class="w-28" :src="card.images.small" />
+          <button @click="openDetail(card.id)" onclick="my_modal_3.showModal()">
+            <p class="font-medium text-center text-xs lg:text-md">{{ card.name }}</p>
+            <img class="lg:w-28 w-20" :src="card.images.small" />
           </button>
         </li>
       </ul>
-      <div class="flex justify-between mt-4 px-5">
-        <button
-          class="w-20 flex items-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900"
-          @click="prevPage()" v-if="currentPage > 1">
+      <div class="flex justify-between mt-4 w-1/2 mx-auto">
+        <button class="btn btn-sm btn-secondary" @click="prevPage()" v-if="currentPage > 1">
           <svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
             viewBox="0 0 14 10">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -228,20 +273,15 @@ function gotoPage(value) {
           Prev
         </button>
         <nav aria-label="Page navigation example" class="mx-auto">
-          <ul class="inline-flex -space-x-px text-base h-10">
+          <ul class="join hidden lg:flex">
             <li v-for="page in pages" :key="page">
-              <button @click="gotoPage(page)" :class="[
-      'flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 hover:bg-gray-100',
-      { 'bg-neutral-500 text-neutral-100': currentPage === page }
-    ]">{{
+              <button @click="gotoPage(page)" class="join-item btn btn-sm btn-secondary"
+                :class="{ 'btn-accent': currentPage === page }">{{
       page }}</button>
             </li>
-
           </ul>
         </nav>
-        <button
-          class="w-20 flex items-center justify-end origin-left px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-e hover:bg-gray-900"
-          @click="nextPage()" v-if="totalPage > currentPage">
+        <button class="btn btn-sm btn-secondary" @click="nextPage()" v-if="totalPage > currentPage">
           Next
           <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
             viewBox="0 0 14 10">
@@ -252,8 +292,15 @@ function gotoPage(value) {
       </div>
 
     </div>
-    <div class="mx auto mt-5 w-max">
-      <cardinfo :cardData="selectedCard" />
-    </div>
+    <dialog id="my_modal_3" class="modal">
+      <div class="modal-box bg-white bg-transparent">
+        <form method="dialog">
+          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <div v-if="selectedCard">
+          <img :src="selectedCard.images.large">
+        </div>
+      </div>
+    </dialog>
   </div>
 </template>

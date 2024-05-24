@@ -154,7 +154,7 @@ const explode = async () => {
       <template v-for="(pokemon, index) in cards.value" :key="index">
         <button v-if="pokemon" class="w-24 h-28 lg:w-32 lg:h-40" @click="pick(pokemon.id, index)" :key="index">
           <div v-if="pokemon.flipped" :class="{ flip: pokemon.flipped }"
-            class="w-24 h-28 lg:w-32 lg:h-40 bg-gradient-to-br from-primary via-secondary to-accent rounded-btn border-2 lg:border-4 hover:border-neutral">
+            class="w-24 h-28 lg:w-32 lg:h-40 bg-gradient-to-br from-primary via-secondary to-accent rounded-btn border-2 border-base-300 lg:border-4 hover:border-neutral">
           </div>
           <div v-else
             :class="pokemon.types[0].type.name, { shake: pokemon.held_items.is_default }, { flip: !pokemon.flipped }"
@@ -177,7 +177,7 @@ const explode = async () => {
         </div>
       </template>
     </div>
-    <button @click="playGame()" class="btn btn-neutral font-bold w-fit mx-auto my-2">Play Game</button>
+    <button @click="playGame()" class="btn btn-neutral text-xl font-bold w-fit mx-auto my-2">Play Game</button>
   </div>
   <div>
     <div>

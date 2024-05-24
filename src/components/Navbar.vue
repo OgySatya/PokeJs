@@ -23,7 +23,7 @@ onMounted(() => {
 
 <template>
     <nav
-        class="flex mx-auto w-full px-2 py-2 lg:px-10 justify-between navbar bg-neutral text-neutral-content items-center">
+        class="flex mx-auto w-auto px-2 py-2 lg:px-10 justify-between navbar bg-neutral text-neutral-content items-center">
         <div class="flex items-center">
             <svg height="50px" width="50px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.985 511.985" xml:space="preserve"

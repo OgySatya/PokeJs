@@ -148,13 +148,13 @@ function toPage(id) {
   </div>
   <div v-else class="mx-auto w-full ">
     <div class="relative flex mb-4 rounded w-max mx-auto">
-      <input type="search" v-model="input" class="input input-bordered w-full max-w-xs mt-8 border-2 input-info"
+      <input type="search" v-model="input" class="input input-bordered w-full max-w-xs mt-8 border-2 input-primary"
         placeholder="Search">
     </div>
     <div>
       <ul class="grid grid-cols-2 gap-2 mt-6 w-max mx-auto lg:grid-cols-5">
         <li v-for="pokemon in paginatedPoke" :key="pokemon.name"
-          class="hover:-translate-y-2 duration-300 rounded-xl border-4 border-double border-neutral hover:border-warning hover:text-warning p-0.5">
+          class="hover:-translate-y-2 duration-300 rounded-xl border-4 border-double border-primary hover:border-warning hover:text-warning p-0.5">
           <div :class="pokemon.type" class="rounded-lg glass">
             <img class="hover:scale-125 duration-300 mx-auto " :src="pokemon.sprite" />
             <button class="font-bold text-sm uppercase " :href="pokemon.url" @click.prevent="openDetail(pokemon.url)">
@@ -165,13 +165,13 @@ function toPage(id) {
         </li>
       </ul>
       <div class="join my-10 w-fit mx-auto flex">
-        <button @click="previousPage()" class="join-item btn btn-outline btn-info">Previous</button>
+        <button @click="previousPage()" class="join-item btn btn-sm btn-outline btn-primary">Previous</button>
         <div v-for="page in pageRange" class="hidden lg:block">
           <button :class="{ 'btn-active': currentPage === page }" @click="toPage(page)"
-            class="join-item btn btn-outline btn-info">{{ page
+            class="join-item btn btn-outline btn-sm  btn-primary">{{ page
             }}</button>
         </div>
-        <button @click="nextPage()" class="join-item btn btn-outline btn-info">Next</button>
+        <button @click="nextPage()" class="join-item btn btn-outline btn-sm  btn-primary">Next</button>
       </div>
       <Teleport to="body">
         <Transition>

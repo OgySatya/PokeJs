@@ -1,7 +1,4 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue';
-import axios from 'axios';
-
 
 const props = defineProps({
   cardData: String
@@ -31,4 +28,5 @@ const props = defineProps({
       <p>Rarity : {{ cardData.rarity }}</p>
     </div>
   </div>
+
 </template>
