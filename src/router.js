@@ -10,7 +10,7 @@ import pokespin from './views/pokespin.vue'
 import pokecards from './views/pokecards.vue'
 
 const routes = [
-  { path: '/', component: home },
+  { path: '/', component: pokematch, },
   { path: '/login', component: login },
   { path: '/register', component: register },
   { path: '/pokedex', component: pokedex, name: 'Pokedex'},
