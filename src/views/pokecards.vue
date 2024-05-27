@@ -221,37 +221,44 @@ function gotoPage(value) {
           </button>
         </form>
       </aside>
-      <aside class="mt-2 justify-between px-3 hidden lg:flex">
-        <div class=" inline-flex bg-white rounded-btn border-2 border-secondary px2 text-accent ">
-          <P class="px-2">Card Set : </P>
-          <select v-model="selectedSet" class="capitalize" @change="newSearch">
+      <aside class="mt-2 justify-between px-3 hidden lg:flex items-center">
+        <label class="w-fit grid label">
+          <span class="label-text ml-2">Card Set</span>
+          <select v-model="selectedSet"
+            class="capitalize select-accent select select-bordered w-fit select-sm border-secondary"
+            @change="newSearch">
+            <option disabled>Card Set</option>
             <option v-for="set in cardSets" :key="set.id" :value="set.id">{{
       set.name }}</option>
           </select>
-        </div>
-        <div class="inline-flex bg-white rounded-btn border-2 border-secondary px2 text-accent">
-          <P class="px-2">Card Type : </P>
-          <select v-model="selectedType" class="capitalize" @change="newSearch">
+        </label>
+        <label class="w-fit grid label">
+          <span class="label-text ml-2">Card Type</span>
+          <select v-model="selectedType"
+            class="capitalize select-accent select select-bordered w-fit select-sm border-secondary"
+            @change="newSearch">
             <option v-for="cardType in cardTypes" :key="cardType.id">{{ cardType }}
             </option>
           </select>
-        </div>
-        <div class="inline-flex bg-white rounded-btn border-2 border-secondary px2 text-accent">
-          <P class="px-2">Card Rarity : </P>
-          <select v-model="selectedRarity" class="capitalize" @change="newSearch">
+        </label>
+        <label class="w-fit grid label">
+          <span class="label-text ml-2">Card Rarity</span>
+          <select v-model="selectedRarity"
+            class="capitalize select-accent select select-bordered w-fit select-sm border-secondary"
+            @change="newSearch">
             <option v-for="rare in cardRarity" :key="rare.id">{{ rare }}</option>
           </select>
-        </div>
-        <div class=" inline-flex bg-white rounded-btn border-2 border-secondary px2 text-accent">
-          <P class="px-2 ">Sort by Name : </P>
-          <select v-model="sort" class="capitalize" @change="newSearch">
+        </label>
+        <label class="w-fit grid label">
+          <span class="label-text ml-2">Sort</span>
+          <select v-model="sort"
+            class="capitalize select-accent select select-bordered w-fit select-sm border-secondary"
+            @change="newSearch">
             <option value="name">Asc</option>
             <option value="-name">Dsc</option>
           </select>
-        </div>
-
-
-        <p class="badge badge-lg badge-neutral badge-outline border-2 text-accent">Total Card : {{ cards.totalCount
+        </label>
+        <p class="rounded-btn border-2 p-2 border-secondary">Total Card : {{ cards.totalCount
           }}</p>
       </aside>
 
@@ -259,7 +266,7 @@ function gotoPage(value) {
         <li v-for="card in cards.data" :key="card.id" class="hover:scale-110 duration-300 ">
           <button @click="openDetail(card.id)" onclick="my_modal_3.showModal()">
             <p class="font-medium text-center text-xs lg:text-md">{{ card.name }}</p>
-            <img class="lg:w-28 w-20" :src="card.images.small" />
+            <img class="lg:w-36 w-20" :src="card.images.small" />
           </button>
         </li>
       </ul>

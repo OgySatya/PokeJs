@@ -116,7 +116,7 @@ const explode = async () => {
           </svg>
         </button>
         <div v-for="(pokemon, index) in pokemonData.data" :key="index"
-          class="wheel border-8 border-neutral-content ring-8 ring-neutral" :style="{ '--v': index + 1 }">
+          class="wheel border-8 border-base-300 ring-8 ring-neutral" :style="{ '--v': index + 1 }">
           <span class="poke flex items-center" v-if="pokemon" :class="pokemon.types[0].type.name">
             <img class="h-20 w-20 lg:w-32 lg:h-32 mx-auto" :style="{ '--v': index + 1 }"
               :src="pokemon.sprites.other.dream_world.front_default" />
@@ -127,10 +127,10 @@ const explode = async () => {
 
     <div class="mx-auto grid lg:m-2 w-max">
       <ConfettiExplosion v-if="visible" class="mx-auto" :particleSize="10" :duration="3500" />
-      <button @click="getPokemon()" class="btn btn-primary text-xl font-bold my-1">
+      <button @click="getPokemon()" class="bg-primary text-2xl py-1 text-neutral-content font-bold rounded-t-btn">
         Change Pokemon
       </button>
-      <ul class="grid grid-cols-5 gap-1 h-fit bg-accent rounded-btn my-1 lg:p-2 lg:gap-4">
+      <ul class="grid grid-cols-5 gap-1 bg-accent lg:p-2 lg:gap-4">
         <li v-for="(pokemon, index) in pokemonData.data" :key="index">
           <div v-if="pokemon" :class="pokemon.types[0].type.name" class="lg:p-1 rounded-box">
             <div class="flex mx-auto ">
@@ -146,13 +146,17 @@ const explode = async () => {
           </div>
         </li>
       </ul>
-      <button @click="spinArrow()" class="btn my-1 btn-secondary text-xl font-bold">
+      <button @click="spinArrow()" class="bg-secondary text-2xl py-1 text-neutral-content font-bold rounded-b-btn">
         Spin Pokemon
       </button>
-      <aside class="mx-auto my-1 bg-base-300 rounded-btn w-full h-auto">
-        <p class="text-4xl font-bold text-neutral text-center ">
-          Rp.{{ dana }}
-        </p>
+      <aside class="mx-auto my-4 bg-base-300 rounded-btn w-full inline-grid items-start  h-40 ">
+        <div class="text-3xl font-bold text-neutral text-center ">
+          <h1 class="lg:text-3xl text-neutral-content bg-warning px-2 py-1  rounded-t-btn">ShopeePay</h1>
+          <p>
+            Rp.{{ dana }}
+          </p>
+        </div>
+
         <div v-if="disabled" class="text-center">
           <p v-if="info" class="text-2xl font-semibold text-success">
             Anda Menang
