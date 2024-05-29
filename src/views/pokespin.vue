@@ -94,7 +94,7 @@ const explode = async () => {
 <template>
   <div class="grid mx-auto w-max lg:flex">
     <main class="mx-auto my-4 lg:m-5 ">
-      <div class="container w-[350px] h-[350px] lg:w-[600px] lg:h-[600px] lg:mx-2 ">
+      <div class="container w-[350px] h-[350px] lg:w-[700px] lg:h-[700px] lg:mx-2 ">
         <button class="arrow" @click="spinArrow()">
           <svg :class="{ spiner: spin }" class="fill-primary w-24 h-24 lg:w-44 lg:h-44"
             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" version="1.1"
@@ -118,7 +118,7 @@ const explode = async () => {
         <div v-for="(pokemon, index) in pokemonData.data" :key="index"
           class="wheel border-8 border-accent ring-8 ring-neutral" :style="{ '--v': index + 1 }">
           <span class="poke flex items-center" v-if="pokemon" :class="pokemon.types[0].type.name">
-            <img class="h-20 w-20 lg:w-32 lg:h-32 mx-auto" :style="{ '--v': index + 1 }"
+            <img class="h-20 w-20 lg:size-36 mx-auto" :style="{ '--v': index + 1 }"
               :src="pokemon.sprites.other.dream_world.front_default" />
           </span>
         </div>
@@ -127,32 +127,34 @@ const explode = async () => {
 
     <div class="mx-auto grid lg:m-2 w-max">
       <ConfettiExplosion v-if="visible" class="mx-auto" :particleSize="10" :duration="3500" />
-      <button @click="getPokemon()" class="bg-primary text-2xl lg:py-1 py-0.5 text-neutral-content font-bold rounded-t-btn">
+      <button @click="getPokemon()"
+        class="bg-primary text-2xl lg:py-1 py-0.5 text-primary-content font-bold rounded-t-btn">
         Change Pokemon
       </button>
-      <ul class="grid grid-cols-5 gap-1 bg-accent lg:p-2 lg:gap-4">
+      <ul class="grid grid-cols-5 gap-1 bg-accent lg:p-2 lg:gap-4 py-1">
         <li v-for="(pokemon, index) in pokemonData.data" :key="index">
           <div v-if="pokemon" :class="pokemon.types[0].type.name" class="lg:p-1 rounded-box">
             <div class="flex mx-auto ">
               <input v-model="pokemon.weight" orient="vertical" type="range" step="1000" min="0" max="10000"
                 class="h-24 hidden lg:block" style="writing-mode: vertical-lr; direction: rtl" />
-              <img class="w-[70px] h-[70px] lg:w-20 lg:h-20 mx-auto rounded-xl"
-                :class="{ 'animate-bounce': !pokemon.is_default }" :src="pokemon.sprites.other.home.front_default" />
+              <img class="size-16 lg:size-24 mx-auto rounded-xl" :class="{ 'animate-bounce': !pokemon.is_default }"
+                :src="pokemon.sprites.other.home.front_default" />
             </div>
             <p class="capitalize font-semibold text-center text-amber-700  hidden lg:block lg:text-lg">
               {{ pokemon.name }}
             </p>
-            <input v-model="pokemon.weight" type="number" class="w-[75px] lg:w-24 text-sm mx-auto input h-6" />
+            <input v-model="pokemon.weight" type="number" class="w-16 lg:w-28 lg:h-6 text-xs mx-auto input h-4" />
           </div>
         </li>
       </ul>
-      <button @click="spinArrow()" class="bg-secondary text-2xl lg:py-1 py-0.5 text-neutral-content font-bold rounded-b-btn">
+      <button @click="spinArrow()"
+        class="bg-secondary text-2xl lg:py-1 py-0.5 text-secondary-content font-bold rounded-b-btn">
         Spin Pokemon
       </button>
-      <aside class="mx-auto my-4 bg-neutral rounded-btn w-full inline-grid items-start  h-40 ">
+      <aside class="mx-auto my-4 bg-base-300 rounded-btn w-full inline-grid items-start  h-40 ">
         <div class="text-2xl font-bold text-center ">
           <p class="lg:text-3xl text-warning-content bg-warning lg:py-1 py-0.5 rounded-t-btn">ShopeePay</p>
-          <p class="text-neutral-content">
+          <p class="text-base-content">
             Rp.{{ dana }}
           </p>
         </div>
@@ -164,7 +166,7 @@ const explode = async () => {
           <p v-else-if="info === false" class="text-2xl font-semibold text-error">
             Anda Kalah
           </p>
-          <p v-if="info !== null" class="text-2xl font-semibold text-neutral-content">
+          <p v-if="info !== null" class="text-2xl font-semibold text-base-content">
             Rp.{{ total }}
           </p>
         </div>
