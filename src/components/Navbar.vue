@@ -62,7 +62,7 @@ onMounted(() => {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h7" />
                     </svg>
-                    <p class=""></p> {{ $route.name }}
+                    <p class="text-sm lg:text-2xl"></p> {{ $route.name }}
                 </div>
                 <ul tabindex="0"
                     class="lg:hidden menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-fit text-base-content">
