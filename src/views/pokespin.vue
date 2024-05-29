@@ -94,9 +94,9 @@ const explode = async () => {
 <template>
   <div class="grid mx-auto w-max lg:flex">
     <main class="mx-auto my-4 lg:m-5 ">
-      <div class="container w-96 h-96 lg:w-[600px] lg:h-[600px] lg:mx-2 ">
+      <div class="container w-[350px] h-[350px] lg:w-[600px] lg:h-[600px] lg:mx-2 ">
         <button class="arrow" @click="spinArrow()">
-          <svg :class="{ spiner: spin }" class="fill-neutral w-24 h-24 lg:w-44 lg:h-44"
+          <svg :class="{ spiner: spin }" class="fill-primary w-24 h-24 lg:w-44 lg:h-44"
             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" version="1.1"
             id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
             <g transform="translate(-1)">
@@ -116,7 +116,7 @@ const explode = async () => {
           </svg>
         </button>
         <div v-for="(pokemon, index) in pokemonData.data" :key="index"
-          class="wheel border-8 border-base-300 ring-8 ring-neutral" :style="{ '--v': index + 1 }">
+          class="wheel border-8 border-accent ring-8 ring-neutral" :style="{ '--v': index + 1 }">
           <span class="poke flex items-center" v-if="pokemon" :class="pokemon.types[0].type.name">
             <img class="h-20 w-20 lg:w-32 lg:h-32 mx-auto" :style="{ '--v': index + 1 }"
               :src="pokemon.sprites.other.dream_world.front_default" />
@@ -127,7 +127,7 @@ const explode = async () => {
 
     <div class="mx-auto grid lg:m-2 w-max">
       <ConfettiExplosion v-if="visible" class="mx-auto" :particleSize="10" :duration="3500" />
-      <button @click="getPokemon()" class="bg-primary text-2xl py-1 text-neutral-content font-bold rounded-t-btn">
+      <button @click="getPokemon()" class="bg-primary text-2xl lg:py-1 py-0.5 text-neutral-content font-bold rounded-t-btn">
         Change Pokemon
       </button>
       <ul class="grid grid-cols-5 gap-1 bg-accent lg:p-2 lg:gap-4">
@@ -136,7 +136,7 @@ const explode = async () => {
             <div class="flex mx-auto ">
               <input v-model="pokemon.weight" orient="vertical" type="range" step="1000" min="0" max="10000"
                 class="h-24 hidden lg:block" style="writing-mode: vertical-lr; direction: rtl" />
-              <img class="w-[75px] h-[75px] lg:w-20 lg:h-20 mx-auto rounded-xl"
+              <img class="w-[70px] h-[70px] lg:w-20 lg:h-20 mx-auto rounded-xl"
                 :class="{ 'animate-bounce': !pokemon.is_default }" :src="pokemon.sprites.other.home.front_default" />
             </div>
             <p class="capitalize font-semibold text-center text-amber-700  hidden lg:block lg:text-lg">
@@ -146,13 +146,13 @@ const explode = async () => {
           </div>
         </li>
       </ul>
-      <button @click="spinArrow()" class="bg-secondary text-2xl py-1 text-neutral-content font-bold rounded-b-btn">
+      <button @click="spinArrow()" class="bg-secondary text-2xl lg:py-1 py-0.5 text-neutral-content font-bold rounded-b-btn">
         Spin Pokemon
       </button>
-      <aside class="mx-auto my-4 bg-base-300 rounded-btn w-full inline-grid items-start  h-40 ">
-        <div class="text-3xl font-bold text-neutral text-center ">
-          <h1 class="lg:text-3xl text-neutral-content bg-warning px-2 py-1  rounded-t-btn">ShopeePay</h1>
-          <p>
+      <aside class="mx-auto my-4 bg-neutral rounded-btn w-full inline-grid items-start  h-40 ">
+        <div class="text-2xl font-bold text-center ">
+          <p class="lg:text-3xl text-warning-content bg-warning lg:py-1 py-0.5 rounded-t-btn">ShopeePay</p>
+          <p class="text-neutral-content">
             Rp.{{ dana }}
           </p>
         </div>
@@ -164,7 +164,7 @@ const explode = async () => {
           <p v-else-if="info === false" class="text-2xl font-semibold text-error">
             Anda Kalah
           </p>
-          <p v-if="info !== null" class="text-2xl font-semibold text-neutral">
+          <p v-if="info !== null" class="text-2xl font-semibold text-neutral-content">
             Rp.{{ total }}
           </p>
         </div>

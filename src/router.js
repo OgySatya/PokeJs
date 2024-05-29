@@ -8,6 +8,7 @@ import pokecok from './views/pokecok.vue'
 import pokematch from './views/pokematch.vue'
 import pokespin from './views/pokespin.vue'
 import pokecards from './views/pokecards.vue'
+import pokechat from './views/pokechat.vue'
 
 const routes = [
   { path: '/', component: pokematch, },
@@ -18,6 +19,7 @@ const routes = [
   { path: '/pokematch', component: pokematch, name: 'Pokematch'},
   { path: '/pokespin', component: pokespin, name: 'Pokespin'},
   { path: '/pokecards', component: pokecards, name: 'Pokecard'},
+  { path: '/pokechat', component: pokechat, name: 'Pokechat'},
 ]
 
 const router = createRouter({
