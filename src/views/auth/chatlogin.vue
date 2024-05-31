@@ -37,6 +37,7 @@ function submit (index){
 <template>
     <div
   class="mx-auto block max-w-md rounded-lg bg-base-300 p-6">
+  <h1 class="text-center text-2xl font-black my-2 drop-shadow-xl">Welcome to Pokemon Group Chat</h1>
   <form class="grid space-y-2 " @submit.prevent="submit(avatar)">
     <label class="input input-bordered flex items-center gap-2 ">
     Name

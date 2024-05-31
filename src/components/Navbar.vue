@@ -67,6 +67,9 @@ onMounted(() => {
                 <ul tabindex="0"
                     class="lg:hidden menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-fit text-base-content">
                     <li class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1">
+                        <RouterLink to="/">PokeChat</RouterLink>
+                    </li>
+                    <li class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1">
                         <RouterLink to="/pokedex">PokeDex</RouterLink>
                     </li>
                     <li class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1">
@@ -85,6 +88,10 @@ onMounted(() => {
             </div>
         </div>
         <ul class="hidden p-1 lg:flex">
+            <li
+                class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
+                <RouterLink to="/">PokeChat</RouterLink>
+            </li>
             <li
                 class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
                 <RouterLink to="/pokedex">PokeDex</RouterLink>

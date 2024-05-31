@@ -4,7 +4,7 @@
 
 @layer components {
   .ground {
-    @apply bg-gradient-to-br from-[#945400c7] via-white to-[#945400c7] 
+    @apply bg-[#945400c7] 
   }
   
   .rock {
@@ -39,7 +39,7 @@
   }
   
   .grass {
-    @apply bg-[#b2f8b0c7] 
+    @apply bg-[#27f120c7] 
   }
   
   .water {

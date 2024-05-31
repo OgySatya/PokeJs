@@ -30,19 +30,30 @@ const addMessage = () => {
 const passing = (data) => {
 userData.value = data
 };
+function logout(){
+  userData.value = ''
+}
 
 </script>
 <template>
-  <main class="max-w-md mx-auto">
-  <login  @event="passing" />
-  <div class="artboard phone-4">
-    <h1>Messages</h1>
-    <ul class="p-5">
+  <div class="artboard phone-4 mx-auto m-5">
+  <login @event="passing" v-if="!userData" />
+  <main v-else class="relative">
+    <div class="navbar bg-neutral text-neutral-content justify-between rounded-t-box">
+    <div class="flex space-x-2 px-3 rounded-btn" >
+          <div class="size-14 p-2 rounded-full overflow-hidden" :class="userData.type"><img class="size-12 scale-125" :src="userData.img" /></div>
+          <p class="text-2xl font-extrabold">{{ userData.name }}</p>
+        </div>
+        <button @click="logout()">
+          <svg class="h-8 w-8 text-neutral-content"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />  <path d="M7 12h14l-3 -3m0 6l3 -3" /></svg>
+          </button>
+  </div>
+    <ul class="overflow-x-auto h-[650px] border-neutral border-x-4 bg-base-200" id="scrollableDiv">
       <li v-for="message in messages" :key="message.id">
-            <div class="chat chat-start">
+            <div class="chat p-2" :class="(message.user.name === userData.name ? 'chat-start' : 'chat-end')">
       <div class="chat-image avatar" >
-        <div class="size-10 rounded-full">
-          <img alt="Tailwind CSS chat bubble component" :src="message.user.img" />
+        <div class="size-10">
+          <img class="" :src="message.user.img" />
         </div>
       </div>
       <div class="chat-header font-semibold">
@@ -51,14 +62,19 @@ userData.value = data
       <div class="chat-bubble text-black text-wrap h-auto w-fit" :class="message.user.type">{{ message.text }}</div>
     </div>
 </li>
-    </ul>
-    <div class="join flex w-max mx-auto">
-  <input class="input input-bordered join-item w-full " v-model="newMessage" placeholder="Enter your message"/>
-  <button @click="addMessage" class="btn join-item">Send Text</button>
+</ul>
+<div class="join mx-auto w-full rounded-none border-4 border-neutral rounded-b-box">
+  <input class="input input-bordered join-item w-full" v-model="newMessage" placeholder="Enter your message"/>
+  <button @click="addMessage" class="btn  join-item">
+    <svg class="h-8 w-8 text-neutral rotate-45"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="10" y1="14" x2="21" y2="3" />  <path d="M21 3L14.5 21a.55 .55 0 0 1 -1 0L10 14L3 10.5a.55 .55 0 0 1 0 -1L21 3" /></svg>
+  </button>
 </div>
-  </div>
-  
 </main>
+
+  
+  </div>
 </template>
+<style>
+</style>
 
 
