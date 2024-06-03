@@ -1,6 +1,6 @@
 <template>
   <span>
-    <svg class="mx-auto" fill="#000000" width="100px" height="100px" viewBox="0 0 512 512" data-name="Layer 1"
+    <svg class="mx-auto fill-gray-400 animate-spin" fill="#000000" width="100px" height="100px" viewBox="0 0 512 512" data-name="Layer 1"
       id="Layer_1" xmlns="http://www.w3.org/2000/svg">
       <title />
       <path

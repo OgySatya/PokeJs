@@ -178,7 +178,7 @@ const explode = async () => {
     <main class="flex lg:p-4">
       <div class=" mx-auto border-8 overflow-hidden border-double border-accent rounded-btn h-fit hidden lg:grid ">
         <div v-if="pickedPokemon" class="mx-auto ">
-          <div v-if="types[1]" :class="'bg-' + types[0].type.name" class="p-1">
+          <div v-if="types[1]" :class="types[0].type.name" class="p-1">
             <div :class="types[1].type.name" class="rounded-full">
               <img class="h-96 w-96 " :src="sprite" />
             </div>
@@ -255,9 +255,9 @@ const explode = async () => {
               <input v-model="bet" type="number" step="1000"
                 class="my-2 h-8 text-primary font-bold input input-bordered input-info w-44 lg:w-max" />
               <div class="inline-grid px-8 lg:flex lg:justify-between lg:px-0">
-                <button class="btn btn-neutral btn-outline btn-sm" @click="allIn()"> All In </button>
-                <button class="btn btn-neutral btn-outline btn-sm" @click="halfMoney()"> Half </button>
-                <button class="btn btn-neutral btn-outline btn-sm" @click="quarter()"> Quarter </button>
+                <button class="btn btn-accent btn-outline btn-sm" @click="allIn()"> All In </button>
+                <button class="btn btn-accent btn-outline btn-sm" @click="halfMoney()"> Half </button>
+                <button class="btn btn-accent btn-outline btn-sm" @click="quarter()"> Quarter </button>
               </div>
             </div>
           </div>

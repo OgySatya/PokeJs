@@ -11,11 +11,11 @@ import pokecards from './views/pokecards.vue'
 import pokechat from './views/pokechat.vue'
 
 const routes = [
-  { path: '/', component: pokechat, name: 'Pokechat'},
+  { path: '/', component: pokecok, name: 'Pokecok'},
   { path: '/login', component: login },
   { path: '/register', component: register },
   { path: '/pokedex', component: pokedex, name: 'Pokedex'},
-  { path: '/pokecok', component: pokecok, name: 'Pokecok'},
+  { path: '/pokechat', component: pokechat, name: 'Pokechat'},
   { path: '/pokematch', component: pokematch, name: 'Pokematch'},
   { path: '/pokespin', component: pokespin, name: 'Pokespin'},
   { path: '/pokecards', component: pokecards, name: 'Pokecard'},

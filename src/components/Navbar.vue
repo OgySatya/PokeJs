@@ -67,13 +67,13 @@ onMounted(() => {
                 <ul tabindex="0"
                     class="lg:hidden menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-fit text-base-content">
                     <li class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1">
-                        <RouterLink to="/">PokeChat</RouterLink>
+                        <RouterLink to="/">PokeCok</RouterLink>
                     </li>
                     <li class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1">
                         <RouterLink to="/pokedex">PokeDex</RouterLink>
                     </li>
                     <li class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1">
-                        <RouterLink to="/pokecok">PokeCok</RouterLink>
+                        <RouterLink to="/pokechat">PokeChat</RouterLink>
                     </li>
                     <li class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1">
                         <RouterLink to="/pokematch">PokeMatch</RouterLink>
@@ -90,7 +90,7 @@ onMounted(() => {
         <ul class="hidden p-1 lg:flex">
             <li
                 class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
-                <RouterLink to="/">PokeChat</RouterLink>
+                <RouterLink to="/">PokeCok</RouterLink>
             </li>
             <li
                 class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
@@ -98,7 +98,7 @@ onMounted(() => {
             </li>
             <li
                 class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
-                <RouterLink to="/pokecok">PokeCok</RouterLink>
+                <RouterLink to="/pokechat">PokeChat</RouterLink>
             </li>
             <li
                 class="mr-6 text-2xl font-bold rounded-md px-2.5 py-1 hover:text-warning hover:scale-110 transition-all">
